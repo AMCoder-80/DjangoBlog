@@ -4,8 +4,10 @@ from .models import Article, Category
 # Register your models here.
 
 
+
+# The last item in list_display doesn't exist in model fields, but we want to declare it
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['title', 'writer', 'slug', 'published']
+    list_display = ['title', 'writer', 'slug', 'published', 'category_in_string']
     list_filter = ['published', 'created']
     search_fields = ['title', 'description']
     prepopulated_fields = {'slug': ['title',]}
@@ -13,7 +15,6 @@ class ArticleAdmin(admin.ModelAdmin):
     ordering = ['published', '-writer']
     # Writer filed considered with its first character
     # - Sign means revers order
-
 
 admin.site.register(Article, ArticleAdmin)
 

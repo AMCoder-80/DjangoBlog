@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Articles
+    Categories
 {% endblock title %}
 
 
@@ -23,7 +23,7 @@
 
 
 {% block content %}
-    {% for post in articles %}
+    {% for post in category.articles.all %}
 
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
