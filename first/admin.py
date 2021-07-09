@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article
+from .models import Article, Category
 
 # Register your models here.
 
@@ -16,3 +16,13 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Article, ArticleAdmin)
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['title', 'position', 'status']
+    list_filter = ['status',]
+    search_fields = ['title', 'position']
+    prepopulated_fields = {'slug': ['title',]}
+
+
+admin.site.register(Category, CategoryAdmin)

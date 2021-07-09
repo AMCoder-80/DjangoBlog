@@ -43,6 +43,14 @@
                             on {{ post.published }}
                         </p>
 
+                        <div>
+                            <p>
+                                {% for cat in post.category.all %}
+                                    #{{ cat.title }}
+                                {% endfor %}
+                            </p>
+                        </div>
+
                     </div>
                     <!-- Divider-->
                     <hr class="my-4"/>
