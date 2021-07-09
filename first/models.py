@@ -7,6 +7,7 @@ from django.utils import timezone
 
 class Article(models.Model):
     title = models.CharField(max_length=50)
+    sub_title = models.CharField(max_length=150, null=True, blank=True)
     writer = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True)
     description = models.TextField()
