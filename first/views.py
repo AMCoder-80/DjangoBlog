@@ -1,3 +1,5 @@
+# First of all, import the Paginator from the mentioned location
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 
 from .models import Article, Category
@@ -8,9 +10,15 @@ from .models import Article, Category
 
 def home(request):
     numbers_of_articles = Article.objects.all().order_by('id')  # - means reversed direction
+    # Create an instance of paginator by giving the queryset and number of objects in each list
+    pagination = Paginator(numbers_of_articles, 3)
+    # getting the page number over arguments
+    page = request.GET.get('page')
+    # select the desire objects with the page number
+    article = pagination.get_page(page)
 
     context = {
-        'articles': numbers_of_articles,
+        'articles': article,
     }
     return render(request, 'first/index.html', context=context)
 
@@ -25,9 +33,13 @@ def detail(request, slug):
 
 
 def category(request, slug):
-    cat = get_object_or_404(Category, slug=slug)
-
+    cat = get_object_or_404(Category, slug=slug, status=True)
+    articles_list = Article.objects.filter(category=cat)
+    pagination = Paginator(articles_list, 3)
+    page = request.GET.get('page')
+    articles = pagination.get_page(page)
     context = {
         "category": cat,
+        'articles': articles,
     }
     return render(request, 'first/category.html', context)

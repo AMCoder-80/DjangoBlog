@@ -1,6 +1,6 @@
 {% extends 'first/base.html' %}
 {% load static %}
-
+{% load custom_tags %}
 {% block title %}
     Articles
 {% endblock title %}
@@ -58,7 +58,8 @@
                 </div>
             </div>
         </div>
-
     {% endfor %}
-{% endblock content %}
 
+    {% paginator_template articles %}
+
+{% endblock content %}

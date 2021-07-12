@@ -10812,3 +10812,12 @@ header.masthead .site-heading .h1 {
     font-size: 2.25rem;
   }
 }
+
+h2.post-title{
+  font-family: 'Sriracha', cursive;!important;
+}
+
+h3.post-subtitle{
+  font-family: 'Indie Flower', cursive;!important;
+  font-size: 35px!important;
+}

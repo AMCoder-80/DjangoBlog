@@ -1,5 +1,6 @@
 {% extends 'first/base.html' %}
 {% load static %}
+{% load custom_tags %}
 
 {% block title %}
     Categories
@@ -23,7 +24,7 @@
 
 
 {% block content %}
-    {% for post in category.articles.all %}
+    {% for post in articles %}
 
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -58,7 +59,8 @@
                 </div>
             </div>
         </div>
-
     {% endfor %}
-{% endblock content %}
 
+    {% paginator_template articles %}
+
+{% endblock content %}
