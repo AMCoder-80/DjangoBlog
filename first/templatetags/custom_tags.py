@@ -21,8 +21,9 @@ def nav_items():
 
 
 @register.inclusion_tag('first/paginator.html')
-def paginator_template(paginator):
+def paginator_template(paginator, page_obj):
     context = {
-        'articles': paginator,
+        'articles': page_obj,
+        'paginator': paginator,
     }
     return context

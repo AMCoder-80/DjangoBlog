@@ -1,26 +1,32 @@
 # First of all, import the Paginator from the mentioned location
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
-
+from django.views.generic import ListView
 from .models import Article, Category
 
 
 # Create your views here.
 
+class ArticleList(ListView):
+    queryset = Article.objects.all().order_by('id')
+    template_name = 'first/index.html'
+    context_object_name = 'articles'
+    paginate_by = 5
 
-def home(request):
-    numbers_of_articles = Article.objects.all().order_by('id')  # - means reversed direction
-    # Create an instance of paginator by giving the queryset and number of objects in each list
-    pagination = Paginator(numbers_of_articles, 5)
-    # getting the page number over arguments
-    page = request.GET.get('page')
-    # select the desire objects with the page number
-    article = pagination.get_page(page)
 
-    context = {
-        'articles': article,
-    }
-    return render(request, 'first/index.html', context=context)
+# def home(request):
+#     numbers_of_articles = Article.objects.all().order_by('id')  # - means reversed direction
+#     # Create an instance of paginator by giving the queryset and number of objects in each list
+#     pagination = Paginator(numbers_of_articles, 5)
+#     # getting the page number over arguments
+#     page = request.GET.get('page')
+#     # select the desire objects with the page number
+#     article = pagination.get_page(page)
+#
+#     context = {
+#         'articles': article,
+#     }
+#     return render(request, 'first/index.html', context=context)
 
 
 def detail(request, slug):
