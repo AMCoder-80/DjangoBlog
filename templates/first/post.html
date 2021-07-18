@@ -16,7 +16,7 @@
                         <h2 class="subheading">{{ article.sub_title }}</h2>
                         <span class="meta">
                                 Posted by
-                                 {{ article.writer }}
+                                 <a href="{{ article.reference }}">{{ article.writer }}</a>
                                 on {{ article.published }}
                             </span>
                     </div>
@@ -33,7 +33,12 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     {{ article.description|linebreaksbr }}
+                    <br>
+                    <br>
+                    <p>The article was written by <a href="{{ article.reference }}">{{ article.writer }}</a></p>
                 </div>
+                <br>
+
             </div>
         </div>
     </article>

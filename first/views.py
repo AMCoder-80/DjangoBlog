@@ -11,7 +11,7 @@ from .models import Article, Category
 def home(request):
     numbers_of_articles = Article.objects.all().order_by('id')  # - means reversed direction
     # Create an instance of paginator by giving the queryset and number of objects in each list
-    pagination = Paginator(numbers_of_articles, 3)
+    pagination = Paginator(numbers_of_articles, 5)
     # getting the page number over arguments
     page = request.GET.get('page')
     # select the desire objects with the page number

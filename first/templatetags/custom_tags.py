@@ -16,7 +16,7 @@ def add_title(data='Rocket Article'):
 # By this function
 @register.inclusion_tag('first/navbar.html')
 def nav_items():
-    category = Category.objects.filter(status=True)
+    category = Category.objects.filter(status=True, parent=None)
     return {'category': category}
 
 
