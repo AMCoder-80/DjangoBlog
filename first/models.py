@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.html import format_html
+from django.contrib.auth.models import User
 from django.utils import timezone
 
 
@@ -37,7 +38,8 @@ class Category(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=50)
     sub_title = models.CharField(max_length=150, null=True, blank=True)
-    writer = models.CharField(max_length=100)
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='articles')
+    publisher = models.CharField(max_length=100)
     reference = models.URLField(max_length=150, blank=True, null=True)
     slug = models.SlugField(max_length=100, unique=True)
     description = models.TextField()

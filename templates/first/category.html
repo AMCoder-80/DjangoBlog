@@ -26,7 +26,8 @@
 {% block content %}
 
     <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div style="border-radius: 8px; border-color: black; text-align: center" class="col-md-10 col-lg-8 col-xl-7 alert alert-secondary" role="alert">
+        <div style="border-radius: 8px; border-color: black; text-align: center"
+             class="col-md-10 col-lg-8 col-xl-7 alert alert-secondary" role="alert">
             Category: &nbsp;{{ category.title }}
         </div>
     </div>
@@ -48,7 +49,7 @@
                         </p>
                         <p class="post-meta" style="font-size: small">
                             Posted by
-                            {{ post.writer }}
+                            <a href="{% url 'blog:author' post.author.username %}"><b>{{ post.author }}</b></a>
                             on {{ post.published }}
                         </p>
 
