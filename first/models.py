@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import format_html
 from django.utils import timezone
 
 
@@ -61,6 +62,10 @@ class Article(models.Model):
     # admin.py inside the related class or in models.py inside the related model (self must not be added)
     def category_in_string(obj):
         return ', '.join([i.title for i in Article.objects.active_categories(obj)])
+
+    def image_tag(self):
+        return format_html(f"<img src='{self.thumbnail.url}' width='70' height='50'>")
+    image_tag.short_description = 'Image'
 
     def __str__(self):
         return self.title

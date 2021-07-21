@@ -30,7 +30,7 @@ def inactivate(model_admin, request, queryset):
 
 # The last item in list_display doesn't exist in model fields, but we want to declare it
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['title', 'writer', 'slug', 'published', 'category_in_string']
+    list_display = ['title', 'image_tag', 'writer', 'slug', 'published', 'category_in_string']
     list_filter = ['published', 'created']
     search_fields = ['title', 'description']
     prepopulated_fields = {'slug': ['title', ]}
