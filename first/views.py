@@ -1,7 +1,7 @@
 # First of all, import the Paginator from the mentioned location
-from django.core.paginator import Paginator
+# from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import Article, Category
 
 
@@ -29,23 +29,48 @@ class ArticleList(ListView):
 #     return render(request, 'first/index.html', context=context)
 
 
-def detail(request, slug):
-    article = get_object_or_404(Article, slug=slug)
+class ArticleDetail(DetailView):
+    template_name = 'first/post.html'
+    context_object_name = 'article'
 
-    context = {
-        'article': article
-    }
-    return render(request, 'first/post.html', context)
+    def get_object(self, queryset=None):
+        return get_object_or_404(Article, slug=self.kwargs.get('slug'))
 
 
-def category(request, slug):
-    cat = get_object_or_404(Category, slug=slug, status=True)
-    articles_list = Article.objects.filter(category=cat)
-    pagination = Paginator(articles_list, 3)
-    page = request.GET.get('page')
-    articles = pagination.get_page(page)
-    context = {
-        "category": cat,
-        'articles': articles,
-    }
-    return render(request, 'first/category.html', context)
+# def detail(request, slug):
+#     article = get_object_or_404(Article, slug=slug)
+#
+#     context = {
+#         'article': article
+#     }
+#     return render(request, 'first/post.html', context)
+
+
+class CategoryList(ListView):
+    template_name = 'first/category.html'
+    paginate_by = 5
+    context_object_name = 'articles'
+
+    def get_queryset(self):
+        global cat
+        slug = self.kwargs.get('slug')
+        cat = get_object_or_404(Category.objects.actives(), slug=slug)
+        return cat.articles.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = cat
+        return context
+
+
+# def category(request, slug):
+#     cat = get_object_or_404(Category, slug=slug, status=True)
+#     articles_list = Article.objects.filter(category=cat)
+#     pagination = Paginator(articles_list, 3)
+#     page = request.GET.get('page')
+#     articles = pagination.get_page(page)
+#     context = {
+#         "category": cat,
+#         'articles': articles,
+#     }
+#     return render(request, 'first/category.html', context)

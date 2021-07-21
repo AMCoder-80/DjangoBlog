@@ -24,6 +24,14 @@
 
 
 {% block content %}
+
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div style="border-radius: 8px; border-color: black; text-align: center" class="col-md-10 col-lg-8 col-xl-7 alert alert-secondary" role="alert">
+            Category: &nbsp;{{ category.title }}
+        </div>
+    </div>
+
+
     {% for post in articles %}
 
         <div class="container px-4 px-lg-5">
@@ -61,6 +69,6 @@
         </div>
     {% endfor %}
 
-    {% paginator_template articles %}
+    {% paginator_template paginator page_obj %}
 
 {% endblock content %}
