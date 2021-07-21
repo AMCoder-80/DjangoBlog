@@ -121,8 +121,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / 'statics',
 ]
+
+# STATIC_ROOT = BASE_DIR / 'statics'
 
 MEDIA_URL = '/images/'
 MEDIA_ROOT = BASE_DIR / 'static/first/images'
