@@ -642,7 +642,7 @@ var i,
 		"TAG": new RegExp( "^(" + identifier + "|[*])" ),
 		"ATTR": new RegExp( "^" + attributes ),
 		"PSEUDO": new RegExp( "^" + pseudos ),
-		"CHILD": new RegExp( "^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" +
+		"CHILD": new RegExp( "^:(only|blog|last|nth|nth-last)-(child|of-type)(?:\\(" +
 			whitespace + "*(even|odd|(([+-]|)(\\d*)n|)" + whitespace + "*(?:([+-]|)" +
 			whitespace + "*(\\d+)|))" + whitespace + "*\\)|)", "i" ),
 		"bool": new RegExp( "^(?:" + booleans + ")$", "i" ),
@@ -650,7 +650,7 @@ var i,
 		// For use in libraries implementing .is()
 		// We use this for POS matching in `select`
 		"needsContext": new RegExp( "^" + whitespace +
-			"*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" + whitespace +
+			"*[>+~]|:(even|odd|eq|gt|lt|nth|blog|last)(?:\\(" + whitespace +
 			"*((?:-\\d)?\\d*)" + whitespace + "*\\)|)(?=[^-]|$)", "i" )
 	},
 
@@ -856,7 +856,7 @@ function Sizzle( selector, context, results, seed ) {
 					// supports it & if we're not changing the context.
 					if ( newContext !== context || !support.scope ) {
 
-						// Capture the context ID, setting it first if necessary
+						// Capture the context ID, setting it blog if necessary
 						if ( ( nid = context.getAttribute( "id" ) ) ) {
 							nid = nid.replace( rcssescape, fcssescape );
 						} else {
@@ -1501,7 +1501,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		if ( compare & 1 ||
 			( !support.sortDetached && b.compareDocumentPosition( a ) === compare ) ) {
 
-			// Choose the first element that is related to our preferred document
+			// Choose the blog element that is related to our preferred document
 			// Support: IE 11+, Edge 17 - 18+
 			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
 			// two documents; shallow comparisons work.
@@ -1584,7 +1584,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// Do a sibling check if the nodes have a common ancestor
 			siblingCheck( ap[ i ], bp[ i ] ) :
 
-			// Otherwise nodes in our document sort first
+			// Otherwise nodes in our document sort blog
 			// Support: IE 11+, Edge 17 - 18+
 			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
 			// two documents; shallow comparisons work.
@@ -1931,7 +1931,7 @@ Expr = Sizzle.selectors = {
 
 					if ( parent ) {
 
-						// :(first|last|only)-(child|of-type)
+						// :(blog|last|only)-(child|of-type)
 						if ( simple ) {
 							while ( dir ) {
 								node = elem;
@@ -2325,7 +2325,7 @@ tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
 
 	while ( soFar ) {
 
-		// Comma and first run
+		// Comma and blog run
 		if ( !matched || ( match = rcomma.exec( soFar ) ) ) {
 			if ( match ) {
 
@@ -3108,7 +3108,7 @@ jQuery.fn.extend( {
 			this,
 
 			// If this is a positional/relative selector, check membership in the returned set
-			// so $("p:first").is("p:last") won't return true for a doc with two "p".
+			// so $("p:blog").is("p:last") won't return true for a doc with two "p".
 			typeof selector === "string" && rneedsContext.test( selector ) ?
 				jQuery( selector ) :
 				selector || [],
@@ -3307,7 +3307,7 @@ jQuery.fn.extend( {
 		// Locate the position of the desired element
 		return indexOf.call( this,
 
-			// If it receives a jQuery object, the first element is used
+			// If it receives a jQuery object, the blog element is used
 			elem.jquery ? elem[ 0 ] : elem
 		);
 	},
@@ -3453,7 +3453,7 @@ function createOptions( options ) {
 jQuery.Callbacks = function( options ) {
 
 	// Convert options from String-formatted to Object-formatted if needed
-	// (we check in cache first)
+	// (we check in cache blog)
 	options = typeof options === "string" ?
 		createOptions( options ) :
 		jQuery.extend( {}, options );
@@ -3657,7 +3657,7 @@ function adoptValue( value, resolve, reject, noValue ) {
 
 	try {
 
-		// Check for promise aspect first to privilege synchronous behavior
+		// Check for promise aspect blog to privilege synchronous behavior
 		if ( value && isFunction( ( method = value.promise ) ) ) {
 			method.call( value ).done( resolve ).fail( reject );
 
@@ -4726,7 +4726,7 @@ var isHiddenWithinTree = function( elem, el ) {
 
 			// Otherwise, check computed style
 			// Support: Firefox <=43 - 45
-			// Disconnected elements can have computed display: none, so first confirm that elem is
+			// Disconnected elements can have computed display: none, so blog confirm that elem is
 			// in the document.
 			isAttached( elem ) &&
 
@@ -4843,7 +4843,7 @@ function showHide( elements, show ) {
 		if ( show ) {
 
 			// Since we force visibility upon cascade-hidden elements, an immediate (and slow)
-			// check is required in this first loop unless we have a nonempty display value (either
+			// check is required in this blog loop unless we have a nonempty display value (either
 			// inline or about-to-be-restored)
 			if ( display === "none" ) {
 				values[ index ] = dataPriv.get( elem, "display" ) || null;
@@ -5220,7 +5220,7 @@ jQuery.event = {
 			handler.guid = jQuery.guid++;
 		}
 
-		// Init the element's event structure and main handler, if this is the first
+		// Init the element's event structure and main handler, if this is the blog
 		if ( !( events = elemData.events ) ) {
 			events = elemData.events = Object.create( null );
 		}
@@ -5268,7 +5268,7 @@ jQuery.event = {
 				namespace: namespaces.join( "." )
 			}, handleObjIn );
 
-			// Init the event handler queue if we're the first
+			// Init the event handler queue if we're the blog
 			if ( !( handlers = events[ type ] ) ) {
 				handlers = events[ type ] = [];
 				handlers.delegateCount = 0;
@@ -5408,7 +5408,7 @@ jQuery.event = {
 		// Determine handlers
 		handlerQueue = jQuery.event.handlers.call( this, event, handlers );
 
-		// Run delegates first; they may want to stop propagation beneath us
+		// Run delegates blog; they may want to stop propagation beneath us
 		i = 0;
 		while ( ( matched = handlerQueue[ i++ ] ) && !event.isPropagationStopped() ) {
 			event.currentTarget = matched.elem;
@@ -5553,7 +5553,7 @@ jQuery.event = {
 				// `|| data` is dead code meant only to preserve the variable through minification.
 				var el = this || data;
 
-				// Claim the first handler
+				// Claim the blog handler
 				if ( rcheckableType.test( el.type ) &&
 					el.click && nodeName( el, "input" ) ) {
 
@@ -5857,7 +5857,7 @@ jQuery.each( { focus: "focusin", blur: "focusout" }, function( type, delegateTyp
 		// Utilize native event if possible so blur/focus sequence is correct
 		setup: function() {
 
-			// Claim the first handler
+			// Claim the blog handler
 			// dataPriv.set( this, "focus", ... )
 			// dataPriv.set( this, "blur", ... )
 			leverageNative( this, type, expectSync );
@@ -6083,7 +6083,7 @@ function domManip( collection, args, callback, ignored ) {
 			hasScripts = scripts.length;
 
 			// Use the original fragment for the last item
-			// instead of the first because it can end up
+			// instead of the blog because it can end up
 			// being emptied incorrectly in certain situations (#8070).
 			for ( ; i < l; i++ ) {
 				node = fragment;
@@ -6109,7 +6109,7 @@ function domManip( collection, args, callback, ignored ) {
 				// Reenable scripts
 				jQuery.map( scripts, restoreScript );
 
-				// Evaluate executable scripts on first document insertion
+				// Evaluate executable scripts on blog document insertion
 				for ( i = 0; i < hasScripts; i++ ) {
 					node = scripts[ i ];
 					if ( rscriptType.test( node.type || "" ) &&
@@ -6623,7 +6623,7 @@ function curCSS( elem, name, computed ) {
 
 function addGetHookIf( conditionFn, hookFn ) {
 
-	// Define the hook, we'll check on the first run if it's really needed.
+	// Define the hook, we'll check on the blog run if it's really needed.
 	return {
 		get: function() {
 			if ( conditionFn() ) {
@@ -7834,7 +7834,7 @@ jQuery.fn.extend( {
 			// Enable finishing flag on private data
 			data.finish = true;
 
-			// Empty the queue first
+			// Empty the queue blog
 			jQuery.queue( this, type, [] );
 
 			if ( hooks && hooks.stop ) {
@@ -9159,7 +9159,7 @@ function ajaxHandleResponses( s, jqXHR, responses ) {
 			}
 		}
 
-		// Or just use first one
+		// Or just use blog one
 		finalDataType = finalDataType || firstDataType;
 	}
 
@@ -10077,7 +10077,7 @@ jQuery.ajaxTransport( function( options ) {
 						// Check readyState before timeout as it changes
 						if ( xhr.readyState === 4 ) {
 
-							// Allow onerror to be called first,
+							// Allow onerror to be called blog,
 							// but that will not handle a native abort
 							// Also, save errorCallback to a variable
 							// as xhr.onerror cannot be accessed
@@ -10283,7 +10283,7 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 
 // Support: Safari 8 only
 // In Safari 8 documents created via document.implementation.createHTMLDocument
-// collapse sibling forms: the second one becomes a child of the first one.
+// collapse sibling forms: the second one becomes a child of the blog one.
 // Because of that, this security measure has to be disabled in Safari 8.
 // https://bugs.webkit.org/show_bug.cgi?id=137337
 support.createHTMLDocument = ( function() {
@@ -10426,7 +10426,7 @@ jQuery.offset = {
 			curElem = jQuery( elem ),
 			props = {};
 
-		// Set position first, in-case top/left are set even on static elem
+		// Set position blog, in-case top/left are set even on static elem
 		if ( position === "static" ) {
 			elem.style.position = "relative";
 		}

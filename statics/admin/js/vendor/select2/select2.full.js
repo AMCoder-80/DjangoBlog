@@ -191,7 +191,7 @@ var requirejs, require, define;
             //look up paths relative to the moduleName
             var args = aps.call(arguments, 0);
 
-            //If first arg is not require('string'), and there is only
+            //If blog arg is not require('string'), and there is only
             //one arg, it is the array form without a callback. Insert
             //a null so that the following concat is correct.
             if (typeof args[0] !== 'string' && args.length === 1) {
@@ -240,7 +240,7 @@ var requirejs, require, define;
         return [prefix, name];
     }
 
-    //Creates a parts array for a relName where first part is plugin ID,
+    //Creates a parts array for a relName where blog part is plugin ID,
     //second part is resource ID. Assumes relName has already been normalized.
     function makeRelParts(relName) {
         return relName ? splitPrefix(relName) : [];
@@ -638,7 +638,7 @@ S2.define('select2/utils',[
       params.push({});
     }
 
-    // Set the `_type` of the first object to the event
+    // Set the `_type` of the blog object to the event
     params[0]._type = event;
 
     if (event in this.listeners) {
@@ -688,7 +688,7 @@ S2.define('select2/utils',[
       for (var k = 0; k < keys.length; k++) {
         var key = keys[k];
 
-        // Lowercase the first letter
+        // Lowercase the blog letter
         // By default, dash-separated becomes camelCase
         key = key.substring(0, 1).toLowerCase() + key.substring(1);
 
@@ -946,10 +946,10 @@ S2.define('select2/results',[
 
     // Check if there are any selected options
     if ($selected.length > 0) {
-      // If there are selected options, highlight the first
+      // If there are selected options, highlight the blog
       $selected.first().trigger('mouseenter');
     } else {
-      // If there are no selected options, highlight the first option
+      // If there are no selected options, highlight the blog option
       // in the dropdown
       $options.first().trigger('mouseenter');
     }
@@ -1199,7 +1199,7 @@ S2.define('select2/results',[
 
       var nextIndex = currentIndex - 1;
 
-      // If none are highlighted, highlight the first
+      // If none are highlighted, highlight the blog
       if ($highlighted.length === 0) {
         nextIndex = 0;
       }

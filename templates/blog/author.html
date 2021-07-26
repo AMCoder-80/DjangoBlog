@@ -1,0 +1,75 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block title %}
+    {{ author.get_full_name }}
+{% endblock title %}
+
+
+{% block header %}
+    <header class="masthead" style="background-image: url({% static 'blog/images/home-bg.jpg' %})">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>Rocket Blog</h1>
+                        <span class="subheading">Enjoy the most fascinating blogs :)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock header %}
+
+
+{% block content %}
+
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div style="border-radius: 8px; border-color: black; text-align: center"
+             class="col-md-10 col-lg-8 col-xl-7 alert alert-secondary" role="alert">
+            Author: &nbsp;{{ author.get_full_name }}
+        </div>
+    </div>
+
+
+    {% for post in articles %}
+
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <!-- Post preview-->
+                    <div class="post-preview">
+                        <a href="{% url 'blog:detail_post' post.slug %}">
+                            <h2 class="post-title">{{ post.title }}</h2>
+                            <h3 class="post-subtitle">{{ post.sub_title }}</h3>
+                        </a>
+                        <p class="post-meta">
+                            {{ post.description|truncatewords:25 }}
+                        </p>
+                        <p class="post-meta" style="font-size: small">
+                            Posted by
+                            <a href="{{ request.path }}/{{ post.author }}">{{ post.author }}</a>
+                            on {{ post.published }}
+                        </p>
+
+                        <div>
+                            <p>
+                                {% for cat in post.active_categories %}
+                                    <a style="text-decoration: none"
+                                       href="{% url 'blog:categories' cat.slug %}">#{{ cat.title }}</a>
+                                {% endfor %}
+                            </p>
+                        </div>
+
+                    </div>
+                    <!-- Divider-->
+                    <hr class="my-4"/>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% paginator_template paginator page_obj %}
+
+{% endblock content %}

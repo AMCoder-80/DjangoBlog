@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'first.apps.FirstConfig',
+    'blog.apps.FirstConfig',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -127,9 +128,14 @@ STATICFILES_DIRS = [
 # STATIC_ROOT = BASE_DIR / 'statics'
 
 MEDIA_URL = '/images/'
-MEDIA_ROOT = BASE_DIR / 'static/first/images'
+MEDIA_ROOT = BASE_DIR / 'static/blog/images'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Specify the url user should be redirected after logging in
+LOGIN_REDIRECT_URL = 'blog:home_view'
+# Specify the url user should be redirected when he/she is not
+LOGIN_URL = 'accounts:login'

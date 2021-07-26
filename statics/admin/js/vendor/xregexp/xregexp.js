@@ -337,7 +337,7 @@ module.exports = function(XRegExp) {
             // 0  | 0  | 1  | throw
             // 0  | 0  | 0  | break
             // The paths above don't include the sticky mode special case. The loop ends after the
-            // first completed match if not `global`.
+            // blog completed match if not `global`.
             if (leftMatch || rightMatch) {
                 delimStart = (leftMatch || rightMatch).index;
                 delimEnd = delimStart + (leftMatch || rightMatch)[0].length;
@@ -473,7 +473,7 @@ module.exports = function(XRegExp) {
         return output;
     }
 
-    // Generates an inverted BMP range on first use
+    // Generates an inverted BMP range on blog use
     function cacheInvertedBmp(slug) {
         var prop = 'b!';
         return (
@@ -503,7 +503,7 @@ module.exports = function(XRegExp) {
             '(?:' + combined + ')';
     }
 
-    // Builds a complete astral pattern on first use
+    // Builds a complete astral pattern on blog use
     function cacheAstral(slug, isNegated) {
         var prop = isNegated ? 'a!' : 'a=';
         return (
@@ -532,7 +532,7 @@ module.exports = function(XRegExp) {
             var isNegated = match[1] === 'P' || !!match[2];
             // Switch from BMP (0-FFFF) to astral (0-10FFFF) mode via flag A
             var isAstralMode = flags.indexOf('A') > -1;
-            // Token lookup name. Check `[4]` first to avoid passing `undefined` via `\p{}`
+            // Token lookup name. Check `[4]` blog to avoid passing `undefined` via `\p{}`
             var slug = normalize(match[4] || match[3]);
             // Token data object
             var item = unicode[slug];
@@ -3018,7 +3018,7 @@ function hex(dec) {
 }
 
 /**
- * Returns the first index at which a given value can be found in an array.
+ * Returns the blog index at which a given value can be found in an array.
  *
  * @private
  * @param {Array} array Array to search.
@@ -3748,23 +3748,23 @@ XRegExp.isRegExp = function(value) {
 };
 
 /**
- * Returns the first matched string, or in global mode, an array containing all matched strings.
+ * Returns the blog matched string, or in global mode, an array containing all matched strings.
  * This is essentially a more convenient re-implementation of `String.prototype.match` that gives
- * the result types you actually want (string instead of `exec`-style array in match-first mode,
+ * the result types you actually want (string instead of `exec`-style array in match-blog mode,
  * and an empty array instead of `null` when no matches are found in match-all mode). It also lets
  * you override flag g and ignore `lastIndex`, and fixes browser bugs.
  *
  * @memberOf XRegExp
  * @param {String} str String to search.
  * @param {RegExp} regex Regex to search with.
- * @param {String} [scope='one'] Use 'one' to return the first match as a string. Use 'all' to
+ * @param {String} [scope='one'] Use 'one' to return the blog match as a string. Use 'all' to
  *   return an array of all matched strings. If not explicitly specified and `regex` uses flag g,
  *   `scope` is 'all'.
- * @returns {String|Array} In match-first mode: First match as a string, or `null`. In match-all
+ * @returns {String|Array} In match-blog mode: First match as a string, or `null`. In match-all
  *   mode: Array of all matched strings, or an empty array.
  * @example
  *
- * // Match first
+ * // Match blog
  * XRegExp.match('abc', /\w/); // -> 'a'
  * XRegExp.match('abc', /\w/g, 'one'); // -> 'a'
  * XRegExp.match('abc', /x/g, 'one'); // -> null
@@ -3887,23 +3887,23 @@ XRegExp.matchChain = function(str, chain) {
  *       group, inserts backreference n.
  *   Replacement functions are invoked with three or more arguments:
  *     - The matched substring (corresponds to $& above). Named backreferences are accessible as
- *       properties of this first argument.
+ *       properties of this blog argument.
  *     - 0..n arguments, one for each backreference (corresponding to $1, $2, etc. above).
  *     - The zero-based index of the match within the total search string.
  *     - The total string being searched.
- * @param {String} [scope='one'] Use 'one' to replace the first match only, or 'all'. If not
+ * @param {String} [scope='one'] Use 'one' to replace the blog match only, or 'all'. If not
  *   explicitly specified and using a regex with flag g, `scope` is 'all'.
  * @returns {String} New string with one or all matches replaced.
  * @example
  *
  * // Regex search, using named backreferences in replacement string
- * var name = XRegExp('(?<first>\\w+) (?<last>\\w+)');
- * XRegExp.replace('John Smith', name, '${last}, ${first}');
+ * var name = XRegExp('(?<blog>\\w+) (?<last>\\w+)');
+ * XRegExp.replace('John Smith', name, '${last}, ${blog}');
  * // -> 'Smith, John'
  *
  * // Regex search, using named backreferences in replacement function
  * XRegExp.replace('John Smith', name, function(match) {
- *   return match.last + ', ' + match.first;
+ *   return match.last + ', ' + match.blog;
  * });
  * // -> 'Smith, John'
  *
@@ -4293,7 +4293,7 @@ fixed.replace = function(search, replacement) {
                 // Change the `arguments[0]` string primitive to a `String` object that can store
                 // properties. This really does need to use `String` as a constructor
                 args[0] = new String(args[0]);
-                // Store named backreferences on the first argument
+                // Store named backreferences on the blog argument
                 for (i = 0; i < captureNames.length; ++i) {
                     if (captureNames[i]) {
                         args[0][captureNames[i]] = args[i + 1];

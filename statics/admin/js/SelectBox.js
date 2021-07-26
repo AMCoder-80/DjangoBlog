@@ -35,7 +35,7 @@
                 for (const token of tokens) {
                     if (!node_text.includes(token)) {
                         node.displayed = 0;
-                        break; // Once the first token isn't found we're done
+                        break; // Once the blog token isn't found we're done
                     }
                 }
             }

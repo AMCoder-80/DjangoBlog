@@ -1,0 +1,145 @@
+{#<div class="collapse navbar-collapse" id="navbarResponsive">#}
+{#    <ul class="navbar-nav ms-auto py-4 py-lg-0">#}
+{#        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'blog:home_view' %}">Home</a></li>#}
+{#        {% for cat in category %}#}
+{#            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"#}
+{#                                    href="{% url 'blog:categories' cat.slug %}">{{ cat.title }}</a></li>#}
+{#            {% if cat.children.all %}#}
+{#                <ul class="navbar-nav ms-auto py-4 py-lg-0">#}
+{#                    {% for cat in cat.children.all %}#}
+{#                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"#}
+{#                                                href="{% url 'blog:categories' cat.slug %}">{{ cat.title }}</a></li>#}
+{#                    {% endfor %}#}
+{#                </ul>#}
+{#            {% else %}#}
+{#            {% endif %}#}
+{#        {% endfor %}#}
+{#    </ul>#}
+{#</div>#}
+
+<style>
+    .menu {
+        display: block;
+        z-index: 999999;
+    }
+
+    .menu li {
+        display: inline-block;
+        position: relative;
+    }
+
+    .menu li.dropdown:hover > .submenu {
+        display: block;
+    }
+
+    .menu li a {
+        display: block;
+        padding: 10px 8px;
+        color: white;
+        background: rgba(150, 150, 150, 0.0);
+    }
+
+    .menu li.dropdown > a::after {
+        content: "\21D3";
+        font-family: 'Indie Flower', cursive;;
+        font-style: normal;
+        font-weight: 400;
+        margin-left: 8px;
+        font-size: 15px;
+    }
+
+    .menu li a::before {
+        font-family: 'Indie Flower', cursive;;
+        font-style: normal;
+        font-weight: 400;
+        margin-right: 8px;
+    }
+
+    .menu li a:hover {
+        background-color: grey;
+        color: cyan;
+        padding: 15px;
+        border: 2px black solid;
+        border-radius: 10px;
+    }
+
+    .menu .submenu {
+        display: none;
+    }
+
+    .submenu {
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        left: 0;
+        list-style-type: none;
+        display: block;
+        width: 200px;
+        z-index: 9;
+    }
+
+    .submenu li {
+        display: block;
+    }
+
+    .submenu li a {
+        display: block;
+        background: #999;
+        color: #fff;
+        padding: 8px 6px;
+        margin-bottom: 1px;
+    }
+
+    .menu .submenu > li.dropdown:hover > .submenu {
+        display: block;
+    }
+
+    .menu .submenu .submenu {
+        position: absolute;
+        left: 200px;
+        top: 0;
+    }
+
+    .submenu li.dropdown > a:after {
+        content: "\21D2";
+        font-family: 'Indie Flower', cursive;;
+        font-style: normal;
+        font-weight: 400;
+        margin-left: 8px;
+        font-size: 15px;
+    }
+
+    a.nested {
+        text-align: center;
+        height: 50px;
+        width: 120px;
+        padding: 20px;
+        border: 2px;
+        border-radius: 10px;
+    }
+
+    a.sub-nested {
+        border: 1px black solid;
+        border-radius: 10px;
+    }
+
+</style>
+
+<ul class="menu">
+    {% for cat in category %}
+        {% if cat.children.all %}
+
+            <li class="dropdown">
+                <a class="nested" href="{% url 'blog:categories' cat.slug %}">{{ cat.title }}</a>
+                {% include 'blog/sub_menu.html' %}
+            </li>
+
+        {% else %}
+
+            <li><a class="nested" href="{% url 'blog:categories' cat.slug %}">{{ cat.title }}</a></li>
+
+        {% endif %}
+    {% endfor %}
+</ul>
+
+<!-- This template is that tag function input and the data renders here -->

@@ -1,0 +1,45 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ article.title|truncatewords:1 }}
+{% endblock title %}
+
+
+{% block header %}
+    <header class="masthead" style="background-image: url({{ article.thumbnail.url }})">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="post-heading">
+                        <h1>{{ article.title }}</h1>
+                        <h2 class="subheading">{{ article.sub_title }}</h2>
+                        <span class="meta">
+                                Posted by
+                                 <a href="{{ article.reference }}">{{ article.writer }}</a>
+                                on {{ article.published }}
+                            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock header %}
+
+
+{% block content %}
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    {{ article.description|linebreaksbr }}
+                    <br>
+                    <br>
+                    <p>The article was written by <a href="{{ article.reference }}">{{ article.writer }}</a></p>
+                </div>
+                <br>
+
+            </div>
+        </div>
+    </article>
+{% endblock content %}

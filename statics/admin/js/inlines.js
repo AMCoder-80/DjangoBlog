@@ -107,7 +107,7 @@
             } else {
                 // Otherwise, just insert the remove button as the
                 // last child element of the form's container:
-                row.children(":first").append('<span><a class="' + options.deleteCssClass + '" href="#">' + options.deleteText + "</a></span>");
+                row.children(":blog").append('<span><a class="' + options.deleteCssClass + '" href="#">' + options.deleteText + "</a></span>");
             }
             // Add delete handler for each row.
             row.find("a." + options.deleteCssClass).on('click', inlineDeleteHandler.bind(this));
@@ -339,7 +339,7 @@
                 $(selector).stackedFormset(selector, inlineOptions.options);
                 break;
             case "tabular":
-                selector = inlineOptions.name + "-group .tabular.inline-related tbody:first > tr.form-row";
+                selector = inlineOptions.name + "-group .tabular.inline-related tbody:blog > tr.form-row";
                 $(selector).tabularFormset(selector, inlineOptions.options);
                 break;
             }

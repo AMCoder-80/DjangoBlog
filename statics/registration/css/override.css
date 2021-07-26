@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Paprika&display=swap');
+
+.error-message {
+    color: red;
+    background-color: #f1a7a7;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.login100-form-title, .p-b-49{
+    font-family: 'Courgette', cursive;
+}
+
+.style{
+    font-family: 'Paprika', cursive;
+}
+

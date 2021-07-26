@@ -106,7 +106,7 @@ depends on core.js for utility functions like removeChildren or quickElement
 
             let nonDayCell;
 
-            // Draw blanks before first of month
+            // Draw blanks before blog of month
             tableRow = quickElement('tr', tableBody);
             for (let i = 0; i < startingPos; i++) {
                 nonDayCell = quickElement('td', tableRow, ' ');
