@@ -11,9 +11,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class ArticleList(LoginRequiredMixin, ListView):
     queryset = Article.objects.all().order_by('id')
-    template_name = 'blog/index.html'
+    template_name = 'AdminLTE/home.html'
     context_object_name = 'articles'
-    paginate_by = 5
 
 
 # def home(request):

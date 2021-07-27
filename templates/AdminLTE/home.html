@@ -1,0 +1,71 @@
+{% extends 'AdminLTE/index.html' %}
+
+{% block title %}
+    {{ user.username }} Profile
+{% endblock title %}
+
+{% block content %}
+    <div class="row" style="margin: auto">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control float-right"
+                                   placeholder="Search">
+
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0" style="height: 420px;">
+                    <table class="table table-head-fixed text-nowrap">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Thumbnail</th>
+                            <th>Category</th>
+                            <th>Author</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for article in articles %}
+                            <tr>
+                                <td>{{ article.title }}</td>
+                                <td><img src="{{ article.thumbnail.url }}" width="150" height="100" alt="Something">
+                                </td>
+                                <td>{{ article.category_in_string }}</td>
+                                <td>{{ article.author }}</td>
+                                {% autoescape on %}
+                                    <td><p>{{ article.description|truncatewords:30 }}</p></td>
+                                {% endautoescape %}
+                                <td>
+                                    {% if forloop.counter0|divisibleby:2 %}
+                                        <a style="width: 140px;white-space: nowrap;height: 35px;font-size: 13px;"
+                                           class="btn btn-primary" href="{% url 'blog:detail_post' article.slug %}">
+                                            <p style="white-space: nowrap">Read the article</p></a>
+                                    {% else %}
+                                        <a style="width: 140px;white-space: nowrap;height: 35px;font-size: 13px;"
+                                           class="btn btn-danger" href="{% url 'blog:detail_post' article.slug %}">
+                                            <p>Read the article</p></a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+{% endblock %}

@@ -3,11 +3,11 @@
 
 .error-message {
     color: red;
-    background-color: #f1a7a7;
+    background-color: #f5bbbb;
     padding: 5px;
     border-radius: 5px;
-    margin-top: 5px;
-    margin-bottom: 10px;
+    margin-top: -15px;
+    margin-bottom: 15px;
     text-align: center;
 }
 
