@@ -125,17 +125,21 @@
 
 </style>
 
-<ul class="menu">
-    {% for cat in category %}
-        {% if cat.children.all %}
+<!-- The nested menu use its own style -->
 
+<ul class="menu">
+<!-- Loop trough all active categories -->
+    {% for cat in category %}
+        <!-- Checks weather category has children or not -->
+        {% if cat.children.all %}
+            <!-- If category has children, add a different list item and include the sub meny -->
             <li class="dropdown">
                 <a class="nested" href="{% url 'blog:categories' cat.slug %}">{{ cat.title }}</a>
                 {% include 'blog/sub_menu.html' %}
             </li>
 
         {% else %}
-
+            <!-- If it does not have children, just add a simple list item -->
             <li><a class="nested" href="{% url 'blog:categories' cat.slug %}">{{ cat.title }}</a></li>
 
         {% endif %}

@@ -1,0 +1,59 @@
+{% extends 'AdminLTE/index.html' %}
+<!-- Load crispy tags to be used -->
+{% load crispy_forms_tags %}
+
+{% block title %}
+    {{ user.username }} Profile
+{% endblock title %}
+
+{% block content %}
+    <div style="padding: 20px">
+        <div class="col-md-12">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Create Form</h3>
+                </div>
+
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <!-- Styling each field of form as crispy separately -->
+                                {{ form.title|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.sub_title|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.publisher|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.author|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.reference|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.slug|as_crispy_field }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form.description|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.category|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.thumbnail|as_crispy_field }}
+                            </div>
+                        </div>
+                        <input style="margin-left: 50px; width: 150px; height: 45px; margin-bottom: 30px;" type="submit"
+                               class="btn btn-primary" value="Send">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

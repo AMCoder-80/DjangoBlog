@@ -1,6 +1,8 @@
 {% extends 'blog/base.html' %}
 {% load static %}
 {% load custom_tags %}
+{% load custom_filter %}
+{% load widget_tweaks %}
 {% block title %}
     Articles
 {% endblock title %}
@@ -35,7 +37,7 @@
                             <h3 class="post-subtitle">{{ post.sub_title }}</h3>
                         </a>
                         <p class="post-meta">
-                            {{ post.description|truncatewords:25 }}
+                            {{ post.description|no_image|safe|truncatewords:20 }}
                         </p>
                         <p class="post-meta" style="font-size: small">
                             Posted by

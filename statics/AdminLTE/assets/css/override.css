@@ -20,3 +20,7 @@ body{
     font-family: 'Paprika', cursive !important;
     font-size: smaller;
 }
+
+#admin-header{
+    margin-bottom: 20px !important;
+}

@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.html import format_html
-
+from django.urls import reverse
 # Importing django user model
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -60,6 +60,9 @@ class Article(models.Model):
     @property
     def active_categories(self):
         return self.category.filter(status=True)
+
+    def get_absolute_url(self):
+        return reverse('blog:detail_post', args=[self.slug])
 
     # The last item was the name of this function, now we can define everything we want
     # Notice that the items in list_display passes the object of its own row to our func

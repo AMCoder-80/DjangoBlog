@@ -1,4 +1,5 @@
 {% load static %}
+<!-- Loads django tweaks to be used -->
 {% load widget_tweaks %}
 
 <!DOCTYPE html>
@@ -56,6 +57,7 @@
                 <div class="wrap-input100 validate-input m-b-23" data-validate="Username is required">
                     <span class="label-input100 style">Username</span>
 
+                    <!-- Adding required classes to forms -->
                     {{ form.username|add_class:'input100' }}
 
                     <span class="focus-input100" data-symbol="&#xf206;"></span>

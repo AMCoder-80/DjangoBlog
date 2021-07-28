@@ -1,16 +1,21 @@
+<!-- Including the sub menu list for children -->
+
 <ul class="submenu">
+<!-- Loop trough the all children categories -->
 {% for cat in cat.children.all %}
-
-
+    <!-- Checks weather the children category has children too or not -->
     {% if cat.children.all %}
+        <!-- Include another sub menu if the condition were true -->
         <li class="dropdown">
             <a class="sub-nested" href="{% url 'blog:categories' cat.slug %}">{{ cat.title }}</a>
             {% include 'blog/sub_menu.html' %}
         </li>
     {% else %}
+        <!-- Just add a simple sub menu if condition were not true -->
         <li><a class="sub-nested" href="{% url 'blog:categories' cat.slug %}">{{ cat.title }}</a></li>
     {% endif %}
 
 
 {% endfor %}
 </ul>
+

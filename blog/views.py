@@ -9,10 +9,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
+# Article list inherit from ListView
 class ArticleList(LoginRequiredMixin, ListView):
-    queryset = Article.objects.all().order_by('id')
-    template_name = 'AdminLTE/home.html'
-    context_object_name = 'articles'
+    queryset = Article.objects.all()  # Defined queryset
+    template_name = 'blog/index.html'  # Template name
+    context_object_name = 'articles'  # context name used for template engine
+    paginate_by = 5  # Pagination py 5 article in each page
 
 
 # def home(request):
@@ -29,12 +31,12 @@ class ArticleList(LoginRequiredMixin, ListView):
 #     }
 #     return render(request, 'blog/index.html', context=context)
 
-
+# Separate articles view inherit from Detail View
 class ArticleDetail(DetailView):
-    template_name = 'blog/post.html'
-    context_object_name = 'article'
+    template_name = 'blog/post.html'  # Template name
+    context_object_name = 'article'  # Context name used for template engine
 
-    def get_object(self, queryset=None):
+    def get_object(self, queryset=None):  # Defining required queryset
         return get_object_or_404(Article, slug=self.kwargs.get('slug'))
 
 
@@ -46,19 +48,19 @@ class ArticleDetail(DetailView):
 #     }
 #     return render(request, 'blog/post.html', context)
 
-
+# Category list
 class CategoryList(ListView):
     template_name = 'blog/category.html'
     paginate_by = 5
     context_object_name = 'articles'
 
-    def get_queryset(self):
+    def get_queryset(self): # Defining required queryset
         global cat
         slug = self.kwargs.get('slug')
         cat = get_object_or_404(Category.objects.actives(), slug=slug)
         return cat.articles.all()
 
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, *, object_list=None, **kwargs): # Overriding context data
         context = super().get_context_data(**kwargs)
         context['category'] = cat
         return context

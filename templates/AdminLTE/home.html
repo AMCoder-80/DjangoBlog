@@ -1,4 +1,5 @@
 {% extends 'AdminLTE/index.html' %}
+{% load custom_filter %}
 
 {% block title %}
     {{ user.username }} Profile
@@ -7,9 +8,15 @@
 {% block content %}
     <div class="row" style="margin: auto">
         <div class="col-12">
-            <div class="card">
+            <div class="card card-success">
                 <div class="card-header">
-
+                    <h3 class="card-title">
+                        {% if user.is_superuser %}
+                            Admin's Article list
+                        {% else %}
+                            {{ user.first_name }}'s Articles
+                        {% endif %}
+                    </h3>
                     <div class="card-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
                             <input type="text" name="table_search" class="form-control float-right"
@@ -24,6 +31,7 @@
                     </div>
                 </div>
                 <!-- /.card-header -->
+
                 <div class="card-body table-responsive p-0" style="height: 420px;">
                     <table class="table table-head-fixed text-nowrap">
                         <thead>
@@ -44,7 +52,7 @@
                                 <td>{{ article.category_in_string }}</td>
                                 <td>{{ article.author }}</td>
                                 {% autoescape on %}
-                                    <td><p>{{ article.description|truncatewords:30 }}</p></td>
+                                    <td><p>{{ article.description|no_image|safe|truncatewords:20 }}</p></td>
                                 {% endautoescape %}
                                 <td>
                                     {% if forloop.counter0|divisibleby:2 %}

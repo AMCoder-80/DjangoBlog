@@ -109,15 +109,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="./index.html" class="nav-link">
+                                <a href="{% url 'accounts:article_list' %}" class="nav-link">
                                     <i class="fa fa-list  nav-icon"></i>
                                     <p>Articles list</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{% url 'accounts:create_article'  %}" class="nav-link">
                                     <i class="far fa-edit nav-icon"></i>
-                                    <p>Edit Article</p>
+                                    <p>Create Article</p>
                                 </a>
                             </li>
                         </ul>
@@ -145,7 +145,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Articles list</h1>
+                        <h1 class="m-0" id="admin-header">Django Blog</h1>
                     </div><!-- /.col -->
 
                 </div><!-- /.row -->
