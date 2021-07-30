@@ -71,7 +71,7 @@ class Article(models.Model):
         return self.category.filter(status=True)
 
     def get_absolute_url(self):
-        return reverse('blog:detail_post', args=[self.slug])
+        return reverse('accounts:article_list')
 
     # The last item was the name of this function, now we can define everything we want
     # Notice that the items in list_display passes the object of its own row to our func

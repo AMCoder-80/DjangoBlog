@@ -46,7 +46,13 @@
                         <tbody>
                         {% for article in articles %}
                             <tr>
-                                <td>{{ article.title }}</td>
+                                <td>
+                                    {% if article.status == 'd' or user.is_superuser %}
+                                        <a href="{% url 'accounts:update_article' article.pk %}">{{ article.title }}</a>
+                                    {% else %}
+                                        {{ article.title }}
+                                    {% endif %}
+                                </td>
                                 <td><img src="{{ article.thumbnail.url }}" width="150" height="100" alt="Something">
                                 </td>
                                 <td>{{ article.category_in_string }}</td>
