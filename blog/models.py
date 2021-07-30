@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.html import format_html
 from django.urls import reverse
 # Importing django user model
-from django.contrib.auth.models import User
+from account.models import User
 from django.utils import timezone
 
 
@@ -38,6 +38,11 @@ class Category(models.Model):
 
 
 class Article(models.Model):
+    CHOICES = (
+        ('p', 'published'),
+        ('d', 'draft'),
+    )
+
     title = models.CharField(max_length=50)
     sub_title = models.CharField(max_length=150, null=True, blank=True)
     # Add author col with a one to many relation to the django user with mentioned attributes
@@ -48,6 +53,7 @@ class Article(models.Model):
     description = models.TextField()
     thumbnail = models.ImageField()
     published = models.DateTimeField(default=timezone.now)
+    status = models.CharField(max_length=10, choices=CHOICES, default='d')
 
     # The article_set can change by adding this attribute to the relational col
     category = models.ManyToManyField(Category, related_name='articles', blank=True)
@@ -56,6 +62,9 @@ class Article(models.Model):
 
     # The default django manager will over-write by this trick
     objects = MyManager()
+
+    class Meta:
+        ordering = ['-created',]
 
     @property
     def active_categories(self):

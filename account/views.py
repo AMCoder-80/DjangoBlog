@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from blog.models import Article, Category
+from .mixin import FieldsSetterMixin, FormValidationMixin
 
 
 # Create your views here.
@@ -19,9 +20,7 @@ class ArticleList(LoginRequiredMixin, ListView):
 
 
 # Creating Article view. To access this view, user should be logged in
-class ArticleCreate(LoginRequiredMixin, CreateView):
+class ArticleCreate(LoginRequiredMixin,FieldsSetterMixin,FormValidationMixin, CreateView):
     model = Article
     # Specify the intended fields to be filled out
-    fields = ["title", "sub_title", "author", "publisher", "reference", "slug", "description", "thumbnail",
-              "category", ]
     template_name = 'AdminLTE/Create_Update.html'

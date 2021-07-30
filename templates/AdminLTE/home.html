@@ -55,14 +55,14 @@
                                     <td><p>{{ article.description|no_image|safe|truncatewords:20 }}</p></td>
                                 {% endautoescape %}
                                 <td>
-                                    {% if forloop.counter0|divisibleby:2 %}
+                                    {% if article.status == 'p' %}
                                         <a style="width: 140px;white-space: nowrap;height: 35px;font-size: 13px;"
                                            class="btn btn-primary" href="{% url 'blog:detail_post' article.slug %}">
-                                            <p style="white-space: nowrap">Read the article</p></a>
+                                            <p style="white-space: nowrap">Published</p></a>
                                     {% else %}
                                         <a style="width: 140px;white-space: nowrap;height: 35px;font-size: 13px;"
                                            class="btn btn-danger" href="{% url 'blog:detail_post' article.slug %}">
-                                            <p>Read the article</p></a>
+                                            <p>Draft</p></a>
                                     {% endif %}
                                 </td>
                             </tr>

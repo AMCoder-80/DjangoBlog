@@ -30,23 +30,31 @@
                                 {{ form.publisher|as_crispy_field }}
                             </div>
                             <div class="col-md-6">
-                                {{ form.author|as_crispy_field }}
-                            </div>
-                            <div class="col-md-6">
                                 {{ form.reference|as_crispy_field }}
                             </div>
                             <div class="col-md-6">
                                 {{ form.slug|as_crispy_field }}
                             </div>
-                            <div class="col-md-12">
-                                {{ form.description|as_crispy_field }}
-                            </div>
-                            <div class="col-md-6">
-                                {{ form.category|as_crispy_field }}
-                            </div>
                             <div class="col-md-6">
                                 {{ form.thumbnail|as_crispy_field }}
                             </div>
+                            <div class="col-md-12">
+                                {{ form.description|as_crispy_field }}
+                            </div>
+
+                            {% if user.is_superuser %}
+                                <div class="col-md-6">
+                                {{ form.author|as_crispy_field }}
+                                </div>
+                                <div class="col-md-6">
+                                {{ form.status|as_crispy_field }}
+                                </div>
+                            {% endif %}
+
+                            <div class="col-md-6">
+                                {{ form.category|as_crispy_field }}
+                            </div>
+
                         </div>
                         <input style="margin-left: 50px; width: 150px; height: 45px; margin-bottom: 30px;" type="submit"
                                class="btn btn-primary" value="Send">

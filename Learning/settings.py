@@ -26,6 +26,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# By defining this value, we tell django to use our user model as the default django user
+AUTH_USER_MODEL = 'account.User'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -36,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.FirstConfig',
+    'account.apps.AccountConfig',
     # Adding django tweaks to installed apps
     'widget_tweaks',
 
