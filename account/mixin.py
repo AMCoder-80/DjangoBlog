@@ -37,3 +37,10 @@ class UpdateAccess:
             raise HttpResponseNotAllowed("You can not edit this article")
 
 
+class DeleteAccessMixin:
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise HttpResponseNotAllowed("You are not allowed to delete an article")

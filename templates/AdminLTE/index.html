@@ -52,7 +52,7 @@
                 <a href="#" class="nav-link">Home</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link" target="_blank">View Website</a>
+                <a href="{% url 'blog:author' user.username %}" class="nav-link" target="_blank">View Website</a>
             </li>
         </ul>
     </nav>
@@ -115,7 +115,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{% url 'accounts:create_article'  %}" class="nav-link">
+                                <a href="{% url 'accounts:create_article' %}" class="nav-link">
                                     <i class="far fa-edit nav-icon"></i>
                                     <p>Create Article</p>
                                 </a>
