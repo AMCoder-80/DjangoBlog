@@ -138,7 +138,10 @@ MEDIA_ROOT = BASE_DIR / 'statics/blog/images'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Specify the url user should be redirected after logging in
-LOGIN_REDIRECT_URL = 'blog:home_view'
+LOGIN_REDIRECT_URL = 'accounts:article_list'
+
+LOGOUT_REDIRECT_URL = 'accounts:login'
+
 # Specify the url user should be redirected when he/she is not
 LOGIN_URL = 'accounts:login'
 
