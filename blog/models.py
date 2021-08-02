@@ -41,6 +41,8 @@ class Article(models.Model):
     CHOICES = (
         ('p', 'published'),
         ('d', 'draft'),
+        ('i', 'pending'),
+        ('r', 'rejected'),
     )
 
     title = models.CharField(max_length=50)

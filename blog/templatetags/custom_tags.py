@@ -39,3 +39,13 @@ def link(request, url_name, link_name, style):
         'style': style,
     }
     return context
+
+
+@register.inclusion_tag('AdminLTE/status.html')
+def status(user, status, article):
+    context = {
+        'user': user,
+        'status': status,
+        'article': article,
+    }
+    return context

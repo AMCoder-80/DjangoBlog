@@ -1,0 +1,49 @@
+{% if status == 'p' %}
+    <td>
+        <a style="color: #f8f9fa; background-color: #5bda78;width: 150px;white-space: nowrap;height: 35px;font-size: 13px;"
+           class="btn" target="_blank"
+           href="{% url 'blog:detail_post' article.slug %}">
+            <p>Published</p></a>
+        {% if user.is_superuser %}
+            <a style="display: block; text-align: center"
+               class="text text-danger"
+               href="{% url 'accounts:delete_article' article.pk %}">Delete</a>
+        {% endif %}
+    </td>
+{% elif status == 'd' %}
+    <td>
+        <a style="color: #f8f9fa; background-color: #749ae8;width: 150px;white-space: nowrap;height: 35px;font-size: 13px;"
+           class="btn" target="_blank"
+           href="{% url 'blog:preview' article.pk %}">
+            <p>Draft</p></a>
+        {% if user.is_superuser %}
+            <a style="display: block; text-align: center"
+               class="text text-danger"
+               href="{% url 'accounts:delete_article' article.pk %}">Delete</a>
+        {% endif %}
+    </td>
+{% elif status == 'i' %}
+    <td>
+        <a style="color: #f8f9fa; background-color: #61c5c3;width: 150px;white-space: nowrap;height: 35px;font-size: 13px;"
+           class="btn" target="_blank"
+           href="{% url 'blog:preview' article.pk %}">
+            <p>Pending</p></a>
+        {% if user.is_superuser %}
+            <a style="display: block; text-align: center"
+               class="text text-danger"
+               href="{% url 'accounts:delete_article' article.pk %}">Delete</a>
+        {% endif %}
+    </td>
+{% else %}
+    <td>
+        <a style="color: #f8f9fa; background-color: #f16d76;width: 150px;white-space: nowrap;height: 35px;font-size: 13px;"
+           class="btn" target="_blank"
+           href="{% url 'blog:preview' article.pk %}">
+            <p>Rejected</p></a>
+        {% if user.is_superuser %}
+            <a style="display: block; text-align: center"
+               class="text text-danger"
+               href="{% url 'accounts:delete_article' article.pk %}">Delete</a>
+        {% endif %}
+    </td>
+{% endif %}

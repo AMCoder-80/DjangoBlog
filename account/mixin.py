@@ -31,7 +31,7 @@ class FieldsSetterMixin:
 class UpdateAccess:
     def dispatch(self, request, *args, **kwargs):
         article = get_object_or_404(Article, pk=kwargs.get('pk'))
-        if (request.user == article.author and article.status == 'd') or request.user.is_superuser:
+        if (request.user == article.author and article.status in ['d', 'r']) or request.user.is_superuser:
             return super().dispatch(request, *args, **kwargs)
         else:
             raise HttpResponseNotAllowed("You cannot view this page")

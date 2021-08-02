@@ -1,5 +1,6 @@
 {% extends 'AdminLTE/index.html' %}
 {% load custom_filter %}
+{% load custom_tags %}
 
 {% block title %}
     {{ user.username }} Profile
@@ -10,7 +11,7 @@
         <div class="col-12">
             {% if articles %}
                 <div class="card card-warning">
-                    <div class="card-header">
+                    <div style="background-color: #9c67f3" class="card-header">
                         <h3 class="card-title">
                             {% if user.is_superuser %}
                                 Admin's Article list
@@ -39,8 +40,8 @@
                             <tr>
                                 <th>Title</th>
                                 <th>Thumbnail</th>
-                                <th>Category</th>
                                 <th>Author</th>
+                                <th>Date</th>
                                 <th>Description</th>
                             </tr>
                             </thead>
@@ -48,7 +49,7 @@
                             {% for article in articles %}
                                 <tr>
                                     <td>
-                                        {% if article.status == 'd' or user.is_superuser %}
+                                        {% if article.status in 'dr'|make_list or user.is_superuser %}
                                             <a href="{% url 'accounts:update_article' article.pk %}">{{ article.title }}</a>
                                         {% else %}
                                             {{ article.title }}
@@ -57,33 +58,14 @@
                                     <td>
                                         <img src="{{ article.thumbnail.url }}" width="150" height="100" alt="Something">
                                     </td>
-                                    <td>{{ article.category_in_string }}</td>
                                     <td>{{ article.author }}</td>
+                                    <td>{{ article.published }}</td>
                                     {% autoescape on %}
                                         <td><p>{{ article.description|no_image|safe|truncatewords:20 }}</p></td>
                                     {% endautoescape %}
 
-                                    {% if article.status == 'p' %}
-                                        <td><a style="width: 150px;white-space: nowrap;height: 35px;font-size: 13px;"
-                                               class="btn btn-success" target="_blank" href="{% url 'blog:detail_post' article.slug %}">
-                                            <p>Published</p></a>
-                                            {% if user.is_superuser %}
-                                                <a style="display: block; text-align: center"
-                                                   class="text text-danger"
-                                                   href="{% url 'accounts:delete_article' article.pk %}">Delete</a>
-                                            {% endif %}
-                                        </td>
-                                    {% else %}
-                                        <td><a style="width: 150px;white-space: nowrap;height: 35px;font-size: 13px;"
-                                               class="btn btn-primary" target="_blank" href="{% url 'blog:preview' article.pk %}">
-                                            <p>Draft</p></a>
-                                            {% if user.is_superuser %}
-                                                <a style="display: block; text-align: center"
-                                                   class="text text-danger"
-                                                   href="{% url 'accounts:delete_article' article.pk %}">Delete</a>
-                                            {% endif %}
-                                        </td>
-                                    {% endif %}
+                                    {% status user article.status article %}
+
                                 </tr>
 
                             {% endfor %}
