@@ -27,3 +27,15 @@ def paginator_template(paginator, page_obj):
         'paginator': paginator,
     }
     return context
+
+
+@register.inclusion_tag('AdminLTE/links.html')
+def link(request, url_name, link_name, style):
+    context = {
+        'request': request,
+        'url_name': url_name,
+        'link': f'accounts:{url_name}',
+        'link_name': link_name,
+        'style': style,
+    }
+    return context

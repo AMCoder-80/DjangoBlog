@@ -1,5 +1,11 @@
 from django.shortcuts import render
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from django.views.generic import (
+    CreateView,
+    ListView,
+    UpdateView,
+    DeleteView,
+    DetailView,
+)
 from django.contrib.auth.mixins import LoginRequiredMixin
 from blog.models import Article, Category
 from django.urls import reverse_lazy
@@ -38,3 +44,8 @@ class ArticleDelete(LoginRequiredMixin, DeleteAccessMixin, DeleteView):
     success_url = reverse_lazy('accounts:article_list')
     context_object_name = 'article'
     template_name = 'AdminLTE/Delete.html'
+
+
+class ArticlePreview(UpdateAccess, DetailView):
+    model = Article
+    template_name = 'blog/post.html'

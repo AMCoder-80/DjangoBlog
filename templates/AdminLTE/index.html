@@ -1,4 +1,6 @@
 {% load static %}
+{% load custom_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -117,18 +119,8 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{% url 'accounts:article_list' %}" class="nav-link">
-                                    <i class="fa fa-list  nav-icon"></i>
-                                    <p>Articles list</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{% url 'accounts:create_article' %}" class="nav-link">
-                                    <i class="far fa-edit nav-icon"></i>
-                                    <p>Create Article</p>
-                                </a>
-                            </li>
+                            {% link request 'article_list' 'Article List' 'fa-list'%}
+                            {% link request 'create_article' 'Create Article' 'fa-edit'%}
                         </ul>
                     </li>
                     <li class="nav-item">

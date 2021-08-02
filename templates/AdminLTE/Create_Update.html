@@ -56,8 +56,14 @@
                             </div>
 
                         </div>
-                        <input style="margin-left: 50px; width: 150px; height: 45px; margin-bottom: 30px;" type="submit"
-                               class="btn btn-primary" value="Send">
+                        <input style="margin-top: 25px; margin-left: 30px; width: 150px; height: 45px; margin-bottom: 30px;" type="submit"
+                               class="btn btn-success float-right" value="Save">
+
+                        {% if user.is_superuser and request.resolver_match.url_name == 'update_article' %}
+                            <a class="btn btn-danger"
+                               style="margin-top: 25px; margin-left: 10px; width: 150px; height: 45px; margin-bottom: 30px;"
+                               href="{% url 'accounts:delete_article' request.resolver_match.kwargs.pk %}">Delete</a>
+                        {% endif %}
                     </form>
                 </div>
             </div>

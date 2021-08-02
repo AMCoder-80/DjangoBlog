@@ -37,7 +37,8 @@ class ArticleDetail(DetailView):
     context_object_name = 'article'  # Context name used for template engine
 
     def get_object(self, queryset=None):  # Defining required queryset
-        return get_object_or_404(Article, slug=self.kwargs.get('slug'))
+        slug = self.kwargs.get('slug')
+        return get_object_or_404(Article.objects.filter(status='p'), slug=slug)
 
 
 # def detail(request, slug):

@@ -64,8 +64,8 @@
                                     {% endautoescape %}
 
                                     {% if article.status == 'p' %}
-                                        <td><a style="width: 140px;white-space: nowrap;height: 35px;font-size: 13px;"
-                                               class="btn btn-success" href="{% url 'blog:detail_post' article.slug %}">
+                                        <td><a style="width: 150px;white-space: nowrap;height: 35px;font-size: 13px;"
+                                               class="btn btn-success" target="_blank" href="{% url 'blog:detail_post' article.slug %}">
                                             <p>Published</p></a>
                                             {% if user.is_superuser %}
                                                 <a style="display: block; text-align: center"
@@ -74,8 +74,8 @@
                                             {% endif %}
                                         </td>
                                     {% else %}
-                                        <td><a style="width: 140px;white-space: nowrap;height: 35px;font-size: 13px;"
-                                               class="btn btn-primary" href="{% url 'blog:detail_post' article.slug %}">
+                                        <td><a style="width: 150px;white-space: nowrap;height: 35px;font-size: 13px;"
+                                               class="btn btn-primary" target="_blank" href="{% url 'blog:preview' article.pk %}">
                                             <p>Draft</p></a>
                                             {% if user.is_superuser %}
                                                 <a style="display: block; text-align: center"

@@ -34,7 +34,7 @@ class UpdateAccess:
         if (request.user == article.author and article.status == 'd') or request.user.is_superuser:
             return super().dispatch(request, *args, **kwargs)
         else:
-            raise HttpResponseNotAllowed("You can not edit this article")
+            raise HttpResponseNotAllowed("You cannot view this page")
 
 
 class DeleteAccessMixin:
