@@ -24,15 +24,20 @@
     </td>
 {% elif status == 'i' %}
     <td>
-        <a style="color: #f8f9fa; background-color: #61c5c3;width: 150px;white-space: nowrap;height: 35px;font-size: 13px;"
-           class="btn" target="_blank"
-           href="{% url 'blog:preview' article.pk %}">
-            <p>Pending</p></a>
+
         {% if user.is_superuser %}
+            <a style="color: #f8f9fa; background-color: #61c5c3;width: 150px;white-space: nowrap;height: 35px;font-size: 13px;"
+               class="btn" target="_blank"
+               href="{% url 'blog:preview' article.pk %}">
+                <p>Pending</p></a>
             <a style="display: block; text-align: center"
                class="text text-danger"
                href="{% url 'accounts:delete_article' article.pk %}">Delete</a>
+        {% else %}
+            <span style="color: #f8f9fa; background-color: #61c5c3;width:
+            150px;white-space: nowrap;height: 35px;font-size: 13px;" class="btn">Pending</span>
         {% endif %}
+
     </td>
 {% else %}
     <td>

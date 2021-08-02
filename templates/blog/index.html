@@ -32,7 +32,7 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <!-- Post preview-->
                     <div class="post-preview">
-                        <a href="{% url 'blog:detail_post' post.slug %}">
+                        <a {% if post.is_special %} style="color:#6c757d;" {% endif %} href="{% url 'blog:detail_post' post.slug %}">
                             <h2 class="post-title">{{ post.title }}</h2>
                             <h3 class="post-subtitle">{{ post.sub_title }}</h3>
                         </a>

@@ -11,10 +11,10 @@ class FieldsSetterMixin:
     def dispatch(self, request, *args, **kargs):
         if request.user.is_superuser:
             self.fields = ["title", "sub_title", "author", "publisher", "reference", "slug", "description", "thumbnail",
-                           "status", "category", ]
+                           "status", "category", "is_special"]
         elif request.user.is_author:
             self.fields = ["title", "sub_title", "publisher", "reference", "slug", "description", "thumbnail",
-                           "category", ]
+                           "category", "is_special"]
         else:
             raise HttpResponseForbidden('You are not neither a superuser nor an author')
         # This means that include the codes above in your builtin codes

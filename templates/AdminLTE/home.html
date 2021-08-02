@@ -42,7 +42,9 @@
                                 <th>Thumbnail</th>
                                 <th>Author</th>
                                 <th>Date</th>
+                                <th>special</th>
                                 <th>Description</th>
+                                <th>Status</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -60,6 +62,13 @@
                                     </td>
                                     <td>{{ article.author }}</td>
                                     <td>{{ article.published }}</td>
+                                    <td style="text-align: center">
+                                        {% if article.is_special %}
+                                            <li style="color: green; font-size: 20px" class="fa fa-check-circle"></li>
+                                        {% else %}
+                                            <li style="color: red; font-size: 20px" class="fa fa-minus-circle"></li>
+                                        {% endif %}
+                                    </td>
                                     {% autoescape on %}
                                         <td><p>{{ article.description|no_image|safe|truncatewords:20 }}</p></td>
                                     {% endautoescape %}

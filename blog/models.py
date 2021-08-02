@@ -56,6 +56,7 @@ class Article(models.Model):
     thumbnail = models.ImageField()
     published = models.DateTimeField(default=timezone.now)
     status = models.CharField(max_length=10, choices=CHOICES, default='d')
+    is_special = models.BooleanField(default=False)
 
     # The article_set can change by adding this attribute to the relational col
     category = models.ManyToManyField(Category, related_name='articles', blank=True)

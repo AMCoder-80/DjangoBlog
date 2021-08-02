@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from .models import Article, Category
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .mixins import SpecialUserOnlyMixin
 
 
 # Create your views here.
@@ -32,7 +33,7 @@ class ArticleList(LoginRequiredMixin, ListView):
 #     return render(request, 'blog/index.html', context=context)
 
 # Separate articles view inherit from Detail View
-class ArticleDetail(DetailView):
+class ArticleDetail(SpecialUserOnlyMixin, DetailView):
     template_name = 'blog/post.html'  # Template name
     context_object_name = 'article'  # Context name used for template engine
 
