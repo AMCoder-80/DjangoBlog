@@ -54,14 +54,14 @@
                 <a href="#" class="nav-link">Home</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="{% url 'blog:author' user.username %}" class="nav-link" target="_blank">View Website</a>
+                <a href="{% url 'blog:home_view' %}" class="nav-link" target="_blank">View Website</a>
             </li>
         </ul>
 
         <ul class="navbar-nav ml-auto">
             <!-- Navbar Search -->
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'accounts:logout' %}">
+                <a class="nav-link" href="{% url 'logout' %}">
                     <i class="fas fa-sign-out-alt" style="font-size: 30px"></i>
                 </a>
             </li>

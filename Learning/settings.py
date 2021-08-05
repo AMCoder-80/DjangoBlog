@@ -140,10 +140,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Specify the url user should be redirected after logging in
 LOGIN_REDIRECT_URL = 'accounts:article_list'
 
-LOGOUT_REDIRECT_URL = 'accounts:login'
+LOGOUT_REDIRECT_URL = 'login'
 
 # Specify the url user should be redirected when he/she is not
-LOGIN_URL = 'accounts:login'
+LOGIN_URL = 'login'
 
 # Defining required template pack for crispy
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Email backend engine for testing purpose
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

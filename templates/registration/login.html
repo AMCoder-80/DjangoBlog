@@ -1,139 +1,70 @@
-{% load static %}
-<!-- Loads django tweaks to be used -->
+{% extends 'registration/base.html' %}
 {% load widget_tweaks %}
+{% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Login</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="{% static 'registration/images/icons/favicon.ico' %}"/>
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/bootstrap/css/bootstrap.min.css' %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css"
-          href="{% static 'registration/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css"
-          href="{% static 'registration/fonts/iconic/css/material-design-iconic-font.min.css' %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/animate/animate.css' %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/css-hamburgers/hamburgers.min.css' %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/animsition/css/animsition.min.css' %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/select2/select2.min.css' %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css"
-          href="{% static 'registration/vendor/daterangepicker/daterangepicker.css' %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static 'registration/css/util.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'registration/css/main.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'registration/css/override.css' %}">
-    <!--===============================================================================================-->
-</head>
-<body>
+{% block title %}
+    Login
+{% endblock title %}
 
-<div class="limiter">
-    <div class="container-login100" style="background-image: url({% static 'registration/images/bg-01.jpg' %});">
-        <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-            <form class="login100-form validate-form" method="post" autocomplete="off">{% csrf_token %}
+{% block header_msg %}
+    <span class="login100-form-title p-b-49">Welcome</span>
+{% endblock header_msg %}
 
-                {% if form.non_field_errors %}
-                    {% for error in form.non_field_errors %}
-                        <div class="error-message">
-                            <span>{{ error }}</span>
-                        </div>
-                    {% endfor %}
-                {% endif %}
+{% block form_fields %}
+    <div class="wrap-input100 validate-input m-b-23" data-validate="Username is required">
+        <span class="label-input100 style">Username</span>
 
-                <span class="login100-form-title p-b-49">
-						Welcome
-					</span>
+        <!-- Adding required classes to forms -->
+        {{ form.username|add_class:'input100' }}
 
-                <div class="wrap-input100 validate-input m-b-23" data-validate="Username is required">
-                    <span class="label-input100 style">Username</span>
+        <span class="focus-input100" data-symbol="&#xf206;"></span>
+    </div>
 
-                    <!-- Adding required classes to forms -->
-                    {{ form.username|add_class:'input100' }}
+    <div class="wrap-input100 validate-input" data-validate="Password is required">
+        <span class="label-input100 style">Password</span>
+        {{ form.password|add_class:'input100' }}
+        <span class="focus-input100" data-symbol="&#xf190;"></span>
 
-                    <span class="focus-input100" data-symbol="&#xf206;"></span>
-                </div>
+    </div>
+    <div class="text-right p-t-8 p-b-31">
+        <a class="style" href="{% url 'password_reset' %}">
+            Forgot password?
+        </a>
+    </div>
 
-                <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <span class="label-input100 style">Password</span>
-                    {{ form.password|add_class:'input100' }}
-                    <span class="focus-input100" data-symbol="&#xf190;"></span>
+    <div class="container-login100-form-btn">
+        <div class="wrap-login100-form-btn">
+            <div class="login100-form-bgbtn"></div>
+            <button class="login100-form-btn style">
+                Login
+            </button>
+        </div>
+    </div>
 
-                </div>
-                <div class="text-right p-t-8 p-b-31">
-                    <a class="style" href="#">
-                        Forgot password?
-                    </a>
-                </div>
-
-                <div class="container-login100-form-btn">
-                    <div class="wrap-login100-form-btn">
-                        <div class="login100-form-bgbtn"></div>
-                        <button class="login100-form-btn style">
-                            Login
-                        </button>
-                    </div>
-                </div>
-
-                <div class="txt1 text-center p-t-54 p-b-20">
+    <div class="txt1 text-center p-t-54 p-b-20">
 						<span class="style">
 							Or Sign Up Using
 						</span>
-                </div>
-
-                <div class="flex-c-m">
-                    <a href="#" class="login100-social-item bg1">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-
-                    <a href="#" class="login100-social-item bg2">
-                        <i class="fa fa-twitter"></i>
-                    </a>
-
-                    <a href="#" class="login100-social-item bg3">
-                        <i class="fa fa-google"></i>
-                    </a>
-                </div>
-
-                <div class="flex-col-c p-t-155">
-
-                    <a href="#" class="txt2 style">
-                        Sign Up
-                    </a>
-                </div>
-            </form>
-        </div>
     </div>
-</div>
 
+    <div class="flex-c-m">
+        <a href="#" class="login100-social-item bg1">
+            <i class="fa fa-facebook"></i>
+        </a>
 
-<div id="dropDownSelect1"></div>
+        <a href="#" class="login100-social-item bg2">
+            <i class="fa fa-twitter"></i>
+        </a>
 
-<!--===============================================================================================-->
-<script src="{% static 'registration/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
-<!--===============================================================================================-->
-<script src="{% static 'registration/vendor/animsition/js/animsition.min.js' %}"></script>
-<!--===============================================================================================-->
-<script src="{% static 'registration/vendor/bootstrap/js/popper.js' %}"></script>
-<script src="{% static 'registration/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
-<!--===============================================================================================-->
-<script src="{% static 'registration/vendor/select2/select2.min.js' %}"></script>
-<!--===============================================================================================-->
-<script src="{% static 'registration/vendor/daterangepicker/moment.min.js' %}"></script>
-<script src="{% static 'registration/vendor/daterangepicker/daterangepicker.js' %}"></script>
-<!--===============================================================================================-->
-<script src="{% static 'registration/vendor/countdowntime/countdowntime.js' %}"></script>
-<!--===============================================================================================-->
-<script src="{% static 'registration/js/main.js' %}"></script>
+        <a href="#" class="login100-social-item bg3">
+            <i class="fa fa-google"></i>
+        </a>
+    </div>
 
-</body>
-</html>
+    <div class="flex-col-c p-t-155">
+
+        <a href="#" class="txt2 style">
+            Sign Up
+        </a>
+    </div>
+{% endblock form_fields %}

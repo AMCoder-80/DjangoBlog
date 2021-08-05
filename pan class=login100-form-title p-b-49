@@ -1,0 +1,103 @@
+[1mdiff --git a/templates/registration/login.html b/templates/registration/login.html[m
+[1mindex 465109f..ba5c70f 100644[m
+[1m--- a/templates/registration/login.html[m
+[1m+++ b/templates/registration/login.html[m
+[36m@@ -1,58 +1,11 @@[m
+[31m-{% load static %}[m
+[31m-<!-- Loads django tweaks to be used -->[m
+[32m+[m[32m{% extends 'registration/base.html' %}[m
+ {% load widget_tweaks %}[m
+[32m+[m[32m{% load static %}[m
+ [m
+[31m-<!DOCTYPE html>[m
+[31m-<html lang="en">[m
+[31m-<head>[m
+[31m-    <title>Login</title>[m
+[31m-    <meta charset="UTF-8">[m
+[31m-    <meta name="viewport" content="width=device-width, initial-scale=1">[m
+[31m-    <!--===============================================================================================-->[m
+[31m-    <link rel="icon" type="image/png" href="{% static 'registration/images/icons/favicon.ico' %}"/>[m
+[31m-    <!--===============================================================================================-->[m
+[31m-    <link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/bootstrap/css/bootstrap.min.css' %}">[m
+[31m-    <!--===============================================================================================-->[m
+[31m-    <link rel="stylesheet" type="text/css"[m
+[31m-          href="{% static 'registration/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">[m
+[31m-    <!--===============================================================================================-->[m
+[31m-    <link rel="stylesheet" type="text/css"[m
+[31m-          href="{% static 'registration/fonts/iconic/css/material-design-iconic-font.min.css' %}">[m
+[31m-    <!--===============================================================================================-->[m
+[31m-    <link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/animate/animate.css' %}">[m
+[31m-    <!--===============================================================================================-->[m
+[31m-    <link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/css-hamburgers/hamburgers.min.css' %}">[m
+[31m-    <!--===============================================================================================-->[m
+[31m-    <link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/animsition/css/animsition.min.css' %}">[m
+[31m-    <!--===============================================================================================-->[m
+[31m-    <link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/select2/select2.min.css' %}">[m
+[31m-    <!--===============================================================================================-->[m
+[31m-    <link rel="stylesheet" type="text/css"[m
+[31m-          href="{% static 'registration/vendor/daterangepicker/daterangepicker.css' %}">[m
+[31m-    <!--===============================================================================================-->[m
+[31m-    <link rel="stylesheet" type="text/css" href="{% static 'registration/css/util.css' %}">[m
+[31m-    <link rel="stylesheet" type="text/css" href="{% static 'registration/css/main.css' %}">[m
+[31m-    <link rel="stylesheet" type="text/css" href="{% static 'registration/css/override.css' %}">[m
+[31m-    <!--===============================================================================================-->[m
+[31m-</head>[m
+[31m-<body>[m
+[31m-[m
+[31m-<div class="limiter">[m
+[31m-    <div class="container-login100" style="background-image: url({% static 'registration/images/bg-01.jpg' %});">[m
+[31m-        <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">[m
+[31m-            <form class="login100-form validate-form" method="post" autocomplete="off">{% csrf_token %}[m
+[31m-[m
+[31m-                {% if form.non_field_errors %}[m
+[31m-                    {% for error in form.non_field_errors %}[m
+[31m-                        <div class="error-message">[m
+[31m-                            <span>{{ error }}</span>[m
+[31m-                        </div>[m
+[31m-                    {% endfor %}[m
+[31m-                {% endif %}[m
+[32m+[m[32m{% block title %}[m
+[32m+[m[32mLogin[m
+[32m+[m[32m{% endblock title %}[m
+ [m
+[31m-                <span class="login100-form-title p-b-49">[m
+[31m-						Welcome[m
+[31m-					</span>[m
+ [m
+                 <div class="wrap-input100 validate-input m-b-23" data-validate="Username is required">[m
+                     <span class="label-input100 style">Username</span>[m
+[36m@@ -109,31 +62,4 @@[m
+                     <a href="#" class="txt2 style">[m
+                         Sign Up[m
+                     </a>[m
+[31m-                </div>[m
+[31m-            </form>[m
+[31m-        </div>[m
+[31m-    </div>[m
+[31m-</div>[m
+[31m-[m
+[31m-[m
+[31m-<div id="dropDownSelect1"></div>[m
+[31m-[m
+[31m-<!--===============================================================================================-->[m
+[31m-<script src="{% static 'registration/vendor/jquery/jquery-3.2.1.min.js' %}"></script>[m
+[31m-<!--===============================================================================================-->[m
+[31m-<script src="{% static 'registration/vendor/animsition/js/animsition.min.js' %}"></script>[m
+[31m-<!--===============================================================================================-->[m
+[31m-<script src="{% static 'registration/vendor/bootstrap/js/popper.js' %}"></script>[m
+[31m-<script src="{% static 'registration/vendor/bootstrap/js/bootstrap.min.js' %}"></script>[m
+[31m-<!--===============================================================================================-->[m
+[31m-<script src="{% static 'registration/vendor/select2/select2.min.js' %}"></script>[m
+[31m-<!--===============================================================================================-->[m
+[31m-<script src="{% static 'registration/vendor/daterangepicker/moment.min.js' %}"></script>[m
+[31m-<script src="{% static 'registration/vendor/daterangepicker/daterangepicker.js' %}"></script>[m
+[31m-<!--===============================================================================================-->[m
+[31m-<script src="{% static 'registration/vendor/countdowntime/countdowntime.js' %}"></script>[m
+[31m-<!--===============================================================================================-->[m
+[31m-<script src="{% static 'registration/js/main.js' %}"></script>[m
+[31m-[m
+[31m-</body>[m
+[31m-</html>[m
+\ No newline at end of file[m
+[32m+[m[32m                </div>[m
+\ No newline at end of file[m
