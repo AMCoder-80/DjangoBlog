@@ -1,0 +1,57 @@
+{% extends 'AdminLTE/index.html' %}
+<!-- Load crispy tags to be used -->
+{% load crispy_forms_tags %}
+
+{% block title %}
+    {{ user.username }} Profile
+{% endblock title %}
+
+{% block content %}
+    <div style="padding: 20px">
+        <div class="col-md-12">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">{{ user.get_full_name }}'s profile</h3>
+                </div>
+
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <!-- Styling each field of form as crispy separately -->
+                                {{ form.username|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.email|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.first_name|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.last_name|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.is_author|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.special_user|as_crispy_field }}
+                            </div>
+
+                        </div>
+                        <input style="margin-top: 25px; margin-left: 30px; width: 150px; height: 45px; margin-bottom: 30px;" type="submit"
+                               class="btn btn-success float-right" value="Save">
+
+                        {% if user.is_superuser and request.resolver_match.url_name == 'update_article' %}
+                            <a class="btn btn-danger"
+                               style="margin-top: 25px; margin-left: 10px; width: 150px; height: 45px; margin-bottom: 30px;"
+                               href="{% url 'accounts:delete_article' request.resolver_match.kwargs.pk %}">Delete</a>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

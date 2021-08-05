@@ -1,6 +1,7 @@
 from django.http import HttpResponseForbidden, HttpResponseNotAllowed
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from blog.models import Article
+from django.conf import settings
 
 
 # To define custom mixin, you just need to write a python class and overriding builtin cbv methods inside of it
@@ -9,14 +10,12 @@ class FieldsSetterMixin:
     # This method gets a request with its args and return a response, so we can add features between
     # request and response
     def dispatch(self, request, *args, **kargs):
+        self.fields = ["title", "sub_title", "publisher", "reference", "slug", "description", "thumbnail",
+                       "status", "category", "is_special"]
+
         if request.user.is_superuser:
-            self.fields = ["title", "sub_title", "author", "publisher", "reference", "slug", "description", "thumbnail",
-                           "status", "category", "is_special"]
-        elif request.user.is_author:
-            self.fields = ["title", "sub_title", "publisher", "reference", "slug", "description", "thumbnail",
-                           "category", "is_special"]
-        else:
-            raise HttpResponseForbidden('You are not neither a superuser nor an author')
+            self.fields += ['author']
+
         # This means that include the codes above in your builtin codes
         return super().dispatch(request, *args, **kargs)
 
@@ -24,6 +23,8 @@ class FieldsSetterMixin:
     def form_valid(self, form):
         if not self.request.user.is_superuser:
             form.instance.author = self.request.user
+        if form.instance.status != 'i':
+            form.instance.status = 'd'
         return super().form_valid(form)
 
 
@@ -44,3 +45,15 @@ class DeleteAccessMixin:
             return super().dispatch(request, *args, **kwargs)
         else:
             raise HttpResponseNotAllowed("You are not allowed to delete an article")
+
+
+class SimpleUsersLimitation:
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(settings.LOGIN_URL)
+        else:
+            if request.user.is_author or request.user.is_superuser:
+                return super().dispatch(request, *args, **kwargs)
+            else:
+                return redirect('accounts:profile')

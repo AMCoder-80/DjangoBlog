@@ -94,7 +94,8 @@
             <!-- SidebarSearch Form -->
             <div class="form-inline">
                 <div class="input-group" data-widget="sidebar-search">
-                    <input style="background-color: #302246f0" class="form-control form-control-sidebar" type="search" placeholder="Search"
+                    <input style="background-color: #302246f0" class="form-control form-control-sidebar" type="search"
+                           placeholder="Search"
                            aria-label="Search">
                     <div class="input-group-append">
                         <button style="background-color: #302246f0" class="btn btn-sidebar">
@@ -119,18 +120,14 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            {% link request 'article_list' 'Article List' 'fa-list'%}
-                            {% link request 'create_article' 'Create Article' 'fa-edit'%}
+
+                            {% if user.is_superuser or user.is_author %}
+                                {% link request 'article_list' 'Article List' 'fa-list' %}
+                                {% link request 'create_article' 'Create Article' 'fa-edit' %}
+                            {% endif %}
+
+                            {% link request 'profile' 'Profile' 'fa-th' %}
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% static 'AdminLTE/pages/widgets.html' %}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                                Profile
-                                <span class="right badge badge-danger">New</span>
-                            </p>
-                        </a>
                     </li>
                 </ul>
             </nav>
