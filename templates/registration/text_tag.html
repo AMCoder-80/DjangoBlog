@@ -1,0 +1,35 @@
+{% if status == 'expired' %}
+
+    <h2>Verification Failed</h2>
+    <p>The verification code you are using, is expired<br>
+        Try to register with another username <a href="{% url 'register' %}">Here</a>
+    </p>
+
+{% elif status == 'active' %}
+
+    <h2>Verification Failed</h2>
+    <p>Your account is currently active<br>
+        Click <a href="{% url 'login' %}">here</a> to login</p>
+
+{% elif status == 'invalid' %}
+
+    <h2>Verification Failed</h2>
+    <p>The verification code you are using is not valid.<br>
+        Try to register with another username <a href="{% url 'register' %}">Here</a>
+    </p>
+
+{% elif status == 'done' %}
+
+    <h2>Verification was successful</h2>
+    <p>Your verification code granted and your account is active now<br>
+        Try to login to your account by clicking <a href="{% url 'login' %}">Here</a>
+    </p>
+
+{% elif status == 'not_active' %}
+    <h2>Activate your account</h2>
+    <p>Before accessing the website, try to verify your email address using the verification code<br>
+        we have emailed you</p>
+
+
+{% endif %}
+

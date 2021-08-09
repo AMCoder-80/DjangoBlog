@@ -87,7 +87,13 @@
                          alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">{{ user.get_full_name }}</a>
+                    <a href="#" class="d-block">
+                        {% if user.get_full_name %}
+                            {{ user.get_full_name }}
+                        {% else %}
+                            {{ user.username }}
+                        {% endif %}
+                    </a>
                 </div>
             </div>
 

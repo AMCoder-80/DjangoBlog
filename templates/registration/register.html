@@ -1,0 +1,94 @@
+{% extends 'registration/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}
+    Register
+{% endblock title %}
+
+{% block header_msg %}
+    <span class="login100-form-title p-b-49">Welcome</span>
+{% endblock header_msg %}
+
+{% block form_fields %}
+
+    <div class="wrap-input100 validate-input m-b-23" data-validate="Username is required">
+        <span class="label-input100 style">Username</span>
+
+        <!-- Adding required classes to forms -->
+        {{ form.username|add_class:'input100' }}
+
+        <span class="focus-input100" data-symbol="&#xf206;"></span>
+    </div>
+    {% for i in form.username.errors %}
+        <p style="color: red; font-family: 'Paprika', cursive;">{{ i }}</p>
+    {% endfor %}
+    <div class="wrap-input100 validate-input" data-validate="Password is required">
+        <span class="label-input100 style">Email</span>
+        {{ form.email|add_class:'input100' }}
+        <span class="focus-input100" data-symbol="&#9993;"></span>
+
+    </div>
+    {% for i in form.email.errors %}
+        <p style="color: red; font-family: 'Paprika', cursive;">{{ i }}</p>
+    {% endfor %}
+    <div class="wrap-input100 validate-input" data-validate="Password is required">
+        <span class="label-input100 style">Password</span>
+        {{ form.password1|add_class:'input100' }}
+        <span class="focus-input100" data-symbol="&#xf190;"></span>
+
+    </div>
+    {% for i in form.new_password1.errors %}
+        <p style="color: red; font-family: 'Paprika', cursive;">{{ i }}</p>
+    {% endfor %}
+    <div class="wrap-input100 validate-input" data-validate="Password is required">
+        <span class="label-input100 style">Confirm</span>
+        {{ form.password2|add_class:'input100' }}
+        <span class="focus-input100" data-symbol="&#xf190;"></span>
+
+    </div>
+    {% for i in form.new_password2.errors %}
+        <p style="color: red; font-family: 'Paprika', cursive;">{{ i }}</p>
+    {% endfor %}
+    <div class="text-right p-t-8 p-b-31">
+        <a class="style" href="{% url 'password_reset' %}">
+            Forgot password?
+        </a>
+    </div>
+
+    <div class="container-login100-form-btn">
+        <div class="wrap-login100-form-btn">
+            <div class="login100-form-bgbtn"></div>
+            <button class="login100-form-btn style">
+                Login
+            </button>
+        </div>
+    </div>
+
+    <div class="txt1 text-center p-t-54 p-b-20">
+						<span class="style">
+							Or Sign Up Using
+						</span>
+    </div>
+
+    <div class="flex-c-m">
+        <a href="#" class="login100-social-item bg1">
+            <i class="fa fa-facebook"></i>
+        </a>
+
+        <a href="#" class="login100-social-item bg2">
+            <i class="fa fa-twitter"></i>
+        </a>
+
+        <a href="#" class="login100-social-item bg3">
+            <i class="fa fa-google"></i>
+        </a>
+    </div>
+
+    <div class="flex-col-c p-t-155">
+
+        <a href="#" class="txt2 style">
+            Sign Up
+        </a>
+    </div>
+{% endblock form_fields %}

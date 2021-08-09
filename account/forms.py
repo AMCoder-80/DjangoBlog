@@ -1,6 +1,9 @@
 # Inherit from django forms
 from django import forms
 from .models import User
+# Django default user creation form
+from django.contrib.auth.forms import UserCreationForm
+
 
 # For model forms we should inherit like this
 class ProfileForm(forms.ModelForm):
@@ -24,3 +27,14 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'first_name', 'last_name', 'is_author', 'special_user']
+
+
+# our custom user creation form by inheriting from django default form
+class SignUp(UserCreationForm):
+    # Here we can add or override fields to any thing we need
+    email = forms.EmailField(max_length=500)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+

@@ -49,3 +49,10 @@ def status(user, status, article):
         'article': article,
     }
     return context
+
+@register.inclusion_tag('registration/text_tag.html')
+def text(status):
+    context = {
+        'status': status,
+    }
+    return context

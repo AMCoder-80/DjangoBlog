@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from account.views import Login
+from account.views import Login, register, Activation
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +23,8 @@ urlpatterns = [
     # In this pattern we tell django to match its views in the mentioned path
     path('', include('django.contrib.auth.urls')),
     path('login/', Login.as_view(), name='login'),
+    path('register/', register, name='register'),
+    path('activate/', Activation.as_view(), name='activate'),
     path('accounts/', include('account.urls'))
 ]
 
