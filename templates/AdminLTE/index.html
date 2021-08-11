@@ -1,5 +1,6 @@
 {% load static %}
 {% load custom_tags %}
+{% load gravatar %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -83,7 +84,8 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="{% static 'AdminLTE/assets/img/user2-160x160.jpg' %}" class="img-circle elevation-2"
+                    <!-- To add the user email gravatar use this tag which its output is the pic url -->
+                    <img src="{% gravatar_url user.email 150 %}" class="img-circle elevation-2"
                          alt="User Image">
                 </div>
                 <div class="info">

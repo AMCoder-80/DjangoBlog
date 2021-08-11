@@ -3,6 +3,8 @@
 {% load custom_tags %}
 {% load custom_filter %}
 {% load widget_tweaks %}
+<!-- Load the app tags here -->
+{% load ratings %}
 {% block title %}
     {{ user.username }}
 {% endblock title %}
@@ -41,6 +43,8 @@
                             </h2>
                             <h3 class="post-subtitle">{{ post.sub_title }}</h3>
                         </a>
+                    <!-- using the star rating tag with the object as input -->
+                    <div>{% ratings post %}</div>
                         <p class="post-meta">
                             {{ post.description|no_image|safe|truncatewords:20 }}
                         </p>

@@ -46,6 +46,10 @@ INSTALLED_APPS = [
 
     # Adding Crispy to installed apps
     'crispy_forms',
+    # Email gravatar app
+    'django_gravatar',
+    # Star rating app
+    'star_ratings',
 ]
 
 MIDDLEWARE = [
@@ -161,3 +165,5 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_SUBJECT_PREFIX = 'AM80'
 DEFAULT_FROM_EMAIL = 'AM80'
 
+# Set the size of stars
+STAR_RATINGS_STAR_HEIGHT = 20

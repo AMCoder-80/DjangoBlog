@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from account.views import Login, register, Activation
 
 urlpatterns = [
@@ -25,7 +25,11 @@ urlpatterns = [
     path('login/', Login.as_view(), name='login'),
     path('register/', register, name='register'),
     path('activate/', Activation.as_view(), name='activate'),
-    path('accounts/', include('account.urls'))
+    path('accounts/', include('account.urls')),
+    # re_path is another method which allows regex as the pattern
+    # add this rout for star rating
+    re_path(r'^ratings/', include('star_ratings.urls', namespace='ratings')),
+
 ]
 
 from django.conf import settings
