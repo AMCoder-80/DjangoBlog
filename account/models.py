@@ -6,6 +6,7 @@ from django.utils import timezone
 
 # Create your models here.
 
+
 # In this User model, you can append every field you need
 class User(AbstractUser):
     is_author = models.BooleanField(default=False)
@@ -17,4 +18,12 @@ class User(AbstractUser):
     # By this attribute, you can tell django admin to display the method value as a boolean
     is_special_user.boolean = True
     is_special_user.short_description = 'Is special user'
+
+
+# IPAddress table
+class IPAddress(models.Model):
+    ip_address = models.GenericIPAddressField()
+
+    def __str__(self):
+        return self.ip_address
 

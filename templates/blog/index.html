@@ -48,11 +48,14 @@
                         <p class="post-meta">
                             {{ post.description|no_image|safe|truncatewords:20 }}
                         </p>
-                        <p class="post-meta" style="font-size: small">
+                        <p class="post-meta" style="font-size: small; margin-bottom: 15px;">
                             Posted by
                             <a href="{% url 'blog:author' post.author.username %}"><b>{{ post.author }}</b></a>
                             on {{ post.published }}
                         </p>
+                    <p class="post-meta" style="font-size: small; margin-bottom: 15px;">
+                        views: {{ post.views.all.count }}
+                    </p>
                         <div>
                             <p>
                                 {% for cat in post.active_categories %}

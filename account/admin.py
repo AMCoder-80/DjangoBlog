@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User
+from .models import User, IPAddress
 from django.contrib.auth.admin import UserAdmin
 
 # Register your models here.
@@ -12,5 +12,7 @@ UserAdmin.fieldsets[2][1]['fields'] = (
 UserAdmin.list_display += ('is_author', 'is_special_user')
 
 admin.site.register(User, UserAdmin)
+
+admin.site.register(IPAddress)
 
 

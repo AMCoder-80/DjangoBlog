@@ -21,7 +21,8 @@
                                 on {{ article.published }}
                             </span>
                     </div>
-                    <div style="text-align: center; padding-top: 50px">{% ratings article %}</div>
+                    <div style="text-align: center; padding-top: 30px">{% ratings article %}</div>
+                    <div class="view-counter">Views: {{ article.views.count }}</div>
                 </div>
             </div>
         </div>

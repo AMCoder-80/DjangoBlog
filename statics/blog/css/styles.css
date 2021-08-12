@@ -11409,3 +11409,9 @@ h3.post-subtitle {
 !important;
     font-size: 25px !important;
 }
+
+.view-counter{
+    font-size: 17px;
+    color: white;
+    text-align: center;
+}

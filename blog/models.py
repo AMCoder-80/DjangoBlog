@@ -4,6 +4,7 @@ from django.urls import reverse
 # Importing django user model
 from account.models import User
 from django.utils import timezone
+from account.models import IPAddress
 
 
 # Create your models here.
@@ -58,6 +59,9 @@ class Article(models.Model):
     status = models.CharField(max_length=10, choices=CHOICES, default='d')
     is_special = models.BooleanField(default=False)
 
+    # This field makes a m2m relation with ip address table which the third table is defined custom with trough attr
+    views = models.ManyToManyField(IPAddress, through='ArticleViews', blank=True, related_name='views')
+
     # The article_set can change by adding this attribute to the relational col
     category = models.ManyToManyField(Category, related_name='articles', blank=True)
 
@@ -92,3 +96,11 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+
+# The third table of views and ip address relation
+class ArticleViews(models.Model):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    ip_address = models.ForeignKey(IPAddress, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+

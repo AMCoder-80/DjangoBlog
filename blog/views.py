@@ -39,7 +39,15 @@ class ArticleDetail(SpecialUserOnlyMixin, DetailView):
 
     def get_object(self, queryset=None):  # Defining required queryset
         slug = self.kwargs.get('slug')
-        return get_object_or_404(Article.objects.filter(status='p'), slug=slug)
+        article = get_object_or_404(Article.objects.filter(status='p'), slug=slug)
+        # Access the user ip address via ip_address attr
+        ip = self.request.user.ip_address
+
+        # Checks weather ip address is the article viewers or not
+        if ip not in article.views.all():
+            article.views.add(ip)
+
+        return article
 
 
 # def detail(request, slug):
