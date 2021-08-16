@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ArticleDetail, CategoryList, ArticleList, AuthorArticles
+from .views import ArticleDetail, CategoryList, ArticleList, AuthorArticles, toggle, com_delete
 from django.views.generic import TemplateView
 from account.views import ArticlePreview
 
@@ -12,4 +12,6 @@ urlpatterns = [
     path('category/<slug>', CategoryList.as_view(), name='categories'),
     path('test/', TemplateView.as_view(template_name='blog/menu.html')),
     path('author/<username>', AuthorArticles.as_view(), name='author'),
+    path('toggle-like/', toggle, name='toggling'),
+    path('delete-comment/', com_delete, name="com_delete"),
 ]

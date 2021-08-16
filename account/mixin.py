@@ -23,8 +23,8 @@ class FieldsSetterMixin:
     def form_valid(self, form):
         if not self.request.user.is_superuser:
             form.instance.author = self.request.user
-        if form.instance.status != 'i':
-            form.instance.status = 'd'
+            if form.instance.status != 'i':
+                form.instance.status = 'd'
         return super().form_valid(form)
 
 

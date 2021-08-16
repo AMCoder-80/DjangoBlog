@@ -1,0 +1,43 @@
+{% load gravatar %}
+<div class="media-block">
+    <a class="media-left" href="#"><img src="{% gravatar_url replies.user.email 150 %}"
+                                        class="img-circle img-sm" alt="User Image">
+    </a>
+    <div class="media-body">
+        <div class="mar-btm">
+            {% if replies.user == user %}
+                <a style="font-size: 15px" onclick="del({{ replies.pk }})" href="#refer">
+                    <i class="fas fa-trash"></i></a>
+            {% endif %}
+            <span class="btn-link text-semibold media-heading box-inline">{{ replies.user }}</span>
+            <span href="#" class="reply-to">Replied to {{ replies.parent.user }}</span>
+            <p class="detail-info">{{ replies.created }}</p>
+        </div>
+        <p>{{ replies.text }}</p>
+        <div class="btn-group" role="group" aria-label="Basic outlined example">
+            <button type="button" id="{{ replies.id }}-like"
+                    onclick="voting({{ replies.id }}, ['-like', '-dislike'], '{{ user.pk }}')"
+                    class="btn btn-outline-success{% if user in replies.like.all %} active{% endif %}">
+                <i class="fa fa-thumbs-up"></i> {{ replies.like.count }}
+            </button>
+            <button type="button" id="{{ replies.id }}-dislike"
+                    onclick="voting({{ replies.id }}, ['-dislike', '-like'], '{{ user.pk }}')"
+                    class="btn btn-outline-danger{% if user in replies.dislike.all %} active{% endif %}">
+                <i class="fa fa-thumbs-down"></i>
+                {{ replies.dislike.count }}
+            </button>
+        </div>
+
+        <div class="rep">
+            <a class="reply" onclick="reply({{ replies.pk }})" href="#comment-form"><i class="fas fa-reply"></i>
+                Reply</a>
+        </div>
+
+        <hr>
+    </div>
+</div>
+{% if replies.replies.all %}
+    {% for replies in replies.replies.all %}
+        {% include 'blog/replies.html' %}
+    {% endfor %}
+{% endif %}

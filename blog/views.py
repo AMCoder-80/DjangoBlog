@@ -1,11 +1,13 @@
 # First of all, import the Paginator from the mentioned location
 # from django.core.paginator import Paginator
 from account.models import User
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
-from .models import Article, Category
+from .models import Article, Category, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .mixins import SpecialUserOnlyMixin
+from django.http import HttpResponse
+from .forms import CommentForm
 
 
 # Create your views here.
@@ -38,6 +40,7 @@ class ArticleDetail(SpecialUserOnlyMixin, DetailView):
     context_object_name = 'article'  # Context name used for template engine
 
     def get_object(self, queryset=None):  # Defining required queryset
+        global article
         slug = self.kwargs.get('slug')
         article = get_object_or_404(Article.objects.filter(status='p'), slug=slug)
         # Access the user ip address via ip_address attr
@@ -49,6 +52,19 @@ class ArticleDetail(SpecialUserOnlyMixin, DetailView):
 
         return article
 
+    def get_context_data(self, **kwargs):
+        context = super(ArticleDetail, self).get_context_data(**kwargs)
+        context['form'] = CommentForm()
+        return context
+
+    def post(self, *args, **kwargs):
+        form = CommentForm(self.request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = self.request.user
+            comment.post = article
+            comment.save()
+        return redirect(self.request.path + "#refer")
 
 # def detail(request, slug):
 #     article = get_object_or_404(Article, slug=slug)
@@ -64,13 +80,13 @@ class CategoryList(ListView):
     paginate_by = 5
     context_object_name = 'articles'
 
-    def get_queryset(self): # Defining required queryset
+    def get_queryset(self):  # Defining required queryset
         global cat
         slug = self.kwargs.get('slug')
         cat = get_object_or_404(Category.objects.actives(), slug=slug)
         return cat.articles.all()
 
-    def get_context_data(self, *, object_list=None, **kwargs): # Overriding context data
+    def get_context_data(self, *, object_list=None, **kwargs):  # Overriding context data
         context = super().get_context_data(**kwargs)
         context['category'] = cat
         return context
@@ -103,3 +119,41 @@ class AuthorArticles(ListView):
         context = super().get_context_data(**kwargs)
         context['author'] = user
         return context
+
+
+def toggle(request):
+    state = request.GET['state']
+    operation = request.GET['operation']
+    user = request.GET['user']
+    id = request.GET['pk']
+    comment = Comment.objects.get(id=id)
+
+    try:
+        if state == '-like':
+            if operation == 'sub':
+                comment.like.remove(int(user))
+            elif operation == 'add':
+                comment.like.add(int(user))
+            elif operation == 'double':
+                comment.dislike.remove(int(user))
+                comment.like.add(int(user))
+
+        elif state == '-dislike':
+            if operation == 'sub':
+                comment.dislike.remove(int(user))
+            elif operation == 'add':
+                comment.dislike.add(int(user))
+            elif operation == 'double':
+                comment.like.remove(int(user))
+                comment.dislike.add(int(user))
+
+        return HttpResponse('True')
+    except:
+        return HttpResponse('Error occurred')
+
+
+def com_delete(request):
+    pk = request.GET.get('pk')
+    comment = Comment.objects.get(pk=pk)
+    comment.delete()
+    return HttpResponse('OK')

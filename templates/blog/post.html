@@ -40,7 +40,18 @@
                     <p>The article was published by <a href="{{ article.reference }}">{{ article.publisher }}</a></p>
                 </div>
                 <br>
-
+                <div id="refer">
+                    <h4 style="float: left; font-family: Lora, -apple-system,serif">
+                        {{ article.comments.count }}
+                        {% if article.comments.count > 1 %}
+                            Comments
+                        {% else %}
+                            Comment
+                        {% endif %}
+                    </h4>
+                </div>
+                <hr>
+                {% include 'blog/comment.html' %}
             </div>
         </div>
     </article>

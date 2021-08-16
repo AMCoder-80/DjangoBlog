@@ -5,6 +5,7 @@ from django.urls import reverse
 from account.models import User
 from django.utils import timezone
 from account.models import IPAddress
+from datetime import datetime, timedelta
 
 
 # Create your models here.
@@ -59,6 +60,7 @@ class Article(models.Model):
     status = models.CharField(max_length=10, choices=CHOICES, default='d')
     is_special = models.BooleanField(default=False)
 
+
     # This field makes a m2m relation with ip address table which the third table is defined custom with trough attr
     views = models.ManyToManyField(IPAddress, through='ArticleViews', blank=True, related_name='views')
 
@@ -104,3 +106,34 @@ class ArticleViews(models.Model):
     ip_address = models.ForeignKey(IPAddress, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
 
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    post = models.ForeignKey(Article, null=True, on_delete=models.CASCADE, related_name='comments')
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE,verbose_name='Reply to'
+                               , related_name='replies')
+    text = models.TextField(verbose_name='Comment')
+    created = models.DateTimeField(auto_now_add=True)
+    like = models.ManyToManyField(User, blank=True, related_name='comment_likes')
+    dislike = models.ManyToManyField(User, blank=True, related_name='comment_dislikes')
+
+    def delta(self):
+        differ = self.created - datetime.today()
+        if differ.days:
+            if differ.days > 30:
+                output = f"{differ.days//30} Month ago"
+            else:
+                output = f"{differ.days} Days ago"
+
+        else:
+            if differ.seconds < 60:
+                output = 'Just now'
+            elif 60 <= differ.seconds < 3600:
+                output = f"{differ.seconds//60} Minutes ago"
+            else:
+                output = f"{differ.seconds//3600} Hours ago"
+
+        return output
+
+    def __str__(self):
+        return f"{self.user} => ({self.post})"
