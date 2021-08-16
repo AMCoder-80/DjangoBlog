@@ -8,6 +8,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .mixins import SpecialUserOnlyMixin
 from django.http import HttpResponse
 from .forms import CommentForm
+from django.core.mail import send_mail
+from Learning.settings import EMAIL_HOST_USER as sender
 
 
 # Create your views here.
@@ -58,13 +60,40 @@ class ArticleDetail(SpecialUserOnlyMixin, DetailView):
         return context
 
     def post(self, *args, **kwargs):
+        article = Article.objects.get(slug=kwargs.get('slug'))
         form = CommentForm(self.request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.user = self.request.user
             comment.post = article
             comment.save()
+
+            author_email = article.author.email
+            try:
+                parent_email = comment.parent.user.email
+            except:
+                parent_email = None
+
+            if author_email != parent_email and author_email != comment.user.email:
+                message_author = f"""
+                Hi {article.author.username},
+                user {comment.user.username}, has left a comment recently to you {article.title} article.
+                Check it out answer if necessary.
+                Have a nice time
+                """
+                send_mail('New Comment', message_author, sender, [author_email, ])
+
+            if parent_email:
+                message_parent = f"""
+                Hi {comment.parent.user.username},
+                user {comment.user.username}, has replied to your comment in {article.title} article.
+                Check it out and answer it if necessary.
+                Have a nice time
+                """
+                send_mail('New Reply', message_parent, sender, [parent_email, ])
+
         return redirect(self.request.path + "#refer")
+
 
 # def detail(request, slug):
 #     article = get_object_or_404(Article, slug=slug)
