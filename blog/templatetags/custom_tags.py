@@ -1,6 +1,8 @@
 from django import template
 
-from ..models import Category
+from ..models import Category, Article
+from django.db.models import Count, Q
+from datetime import datetime, timedelta
 
 register = template.Library()
 
@@ -50,9 +52,30 @@ def status(user, status, article):
     }
     return context
 
+
 @register.inclusion_tag('registration/text_tag.html')
 def text(status):
     context = {
         'status': status,
     }
+    return context
+
+
+@register.inclusion_tag('blog/top_articles.html')
+def top_ones(state, header):
+    if state == 'views':
+        from_time = datetime.today() - timedelta(days=30)
+        query_set = Article.objects.annotate(
+            count=Count('views', filter=Q(articleviews__created__gte=from_time))
+        ).order_by('-count', '-published')[:5]
+    elif state == 'controversial':
+        query_set = Article.objects.annotate(
+            count=Count('comments')
+        ).order_by('-count', '-published')[:5]
+
+    context = {
+    'article': query_set, # noqa
+    'header': header,
+    }
+
     return context
