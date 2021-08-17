@@ -28,8 +28,8 @@
 
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div style="border-radius: 8px; border-color: black; text-align: center"
-             class="col-md-10 col-lg-8 col-xl-7 alert alert-secondary" role="alert">
-            Author: &nbsp;{{ author.get_full_name }}
+             class="col-md-10 col-lg-8 col-xl-7 alert alert-info" role="alert">
+            Search for: &nbsp;{{ search }}
         </div>
     </div>
 
@@ -69,6 +69,8 @@
                 </div>
             </div>
         </div>
+    {% empty %}
+        <p>No result matches the given quey</p>
     {% endfor %}
 
     {% paginator_template request paginator page_obj %}

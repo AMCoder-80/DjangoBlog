@@ -59,7 +59,6 @@ class Article(models.Model):
     published = models.DateTimeField(default=timezone.now)
     status = models.CharField(max_length=10, choices=CHOICES, default='d')
     is_special = models.BooleanField(default=False)
-
     # This field makes a m2m relation with ip address table which the third table is defined custom with trough attr
     views = models.ManyToManyField(IPAddress, through='ArticleViews', blank=True, related_name='views')
 
@@ -116,7 +115,7 @@ class Comment(models.Model):
     dislike = models.ManyToManyField(User, blank=True, related_name='comment_dislikes')
 
     def delta(self):
-        differ = self.created - datetime.today()
+        differ = timezone.localtime(timezone.now()) - self.created
         if differ.days:
             if differ.days > 30:
                 output = f"{differ.days//30} Month ago"

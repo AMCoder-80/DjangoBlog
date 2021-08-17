@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ArticleDetail, CategoryList, ArticleList, AuthorArticles, toggle, com_delete
+from .views import *
 from django.views.generic import TemplateView
 from account.views import ArticlePreview
 
@@ -14,4 +14,5 @@ urlpatterns = [
     path('author/<username>', AuthorArticles.as_view(), name='author'),
     path('toggle-like/', toggle, name='toggling'),
     path('delete-comment/', com_delete, name="com_delete"),
+    path('search/', SearchList.as_view(), name='search'),
 ]

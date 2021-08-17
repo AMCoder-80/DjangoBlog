@@ -1,15 +1,17 @@
 # First of all, import the Paginator from the mentioned location
 # from django.core.paginator import Paginator
-from account.models import User
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView
-from .models import Article, Category, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .mixins import SpecialUserOnlyMixin
-from django.http import HttpResponse
-from .forms import CommentForm
 from django.core.mail import send_mail
+from django.db.models import Q
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect
+from django.views.generic import ListView, DetailView
+
 from Learning.settings import EMAIL_HOST_USER as sender
+from account.models import User
+from .forms import CommentForm
+from .mixins import SpecialUserOnlyMixin
+from .models import Article, Category, Comment
 
 
 # Create your views here.
@@ -186,3 +188,26 @@ def com_delete(request):
     comment = Comment.objects.get(pk=pk)
     comment.delete()
     return HttpResponse('OK')
+
+
+class SearchList(ListView):
+    template_name = 'blog/search.html'
+    paginate_by = 5
+    context_object_name = 'articles'
+
+    def get_queryset(self):
+        content = self.request.GET.get('q')
+        articles = Article.objects.filter(
+           (Q(description__icontains=content) | Q(title__icontains=content)) & Q(status__exact='p')
+        )
+        return articles
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search'] = self.request.GET.get('q')
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.GET.get('q'):
+            return super(SearchList, self).dispatch(request, *args, **kwargs)
+        return redirect('blog:home_view')

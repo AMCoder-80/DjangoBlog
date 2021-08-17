@@ -25,8 +25,9 @@ def nav_items():
 
 
 @register.inclusion_tag('blog/paginator.html')
-def paginator_template(paginator, page_obj):
+def paginator_template(request, paginator, page_obj):
     context = {
+        'request': request,
         'articles': page_obj,
         'paginator': paginator,
     }

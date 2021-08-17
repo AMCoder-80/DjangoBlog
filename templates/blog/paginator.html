@@ -1,31 +1,57 @@
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            {% if not articles.has_previous %}
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-            {% else %}
-                <li class="page-item">
-                    <a class="page-link" href="{{ request.path }}?page={{ articles.previous_page_number }}">Previous</a>
-                </li>
-            {% endif %}
-
-            {% for page in paginator.page_range %}
-                {% if articles.number == page %}
-                    <li class="page-item active"><a class="page-link" href="{{ request.path }}?page={{ articles.number }}">{{ page }}</a></li>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if not articles.has_previous %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+        {% else %}
+            <li class="page-item">
+                {% if request.GET.q %}
+                    <a class="page-link"
+                       href="{{ request.path }}?page={{ articles.previous_page_number }}&q={{ request.GET.q }}">Previous</a>
                 {% else %}
-                    <li class="page-item"><a class="page-link" href="{{ request.path }}?page={{ page }}">{{ page }}</a></li>
+                    <a class="page-link" href="{{ request.path }}?page={{ articles.previous_page_number }}">Previous</a>
                 {% endif %}
-            {% endfor %}
+            </li>
+        {% endif %}
 
-            {% if not articles.has_next %}
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
-                </li>
+        {% for page in paginator.page_range %}
+            {% if articles.number == page %}
+                {% if request.GET.q %}
+                    <li class="page-item active">
+                        <a class="page-link"
+                           href="{{ request.path }}?page={{ articles.number }}&q={{ request.GET.q }}">{{ page }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item active"><a class="page-link"
+                                                    href="{{ request.path }}?page={{ articles.number }}">{{ page }}</a>
+                    </li>
+                {% endif %}
             {% else %}
-                <li class="page-item">
-                    <a class="page-link" href="{{ request.path }}?page={{ articles.next_page_number }}">Next</a>
-                </li>
+                {% if request.GET.q %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ request.path }}?page={{ page }}&q={{ request.GET.q }}">{{ page }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="{{ request.path }}?page={{ page }}">{{ page }}</a>
+                    </li>
+                {% endif %}
             {% endif %}
-        </ul>
-    </nav>
+        {% endfor %}
+
+        {% if not articles.has_next %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+            </li>
+        {% else %}
+            <li class="page-item">
+                {% if request.GET.q %}
+                    <a class="page-link"
+                       href="{{ request.path }}?page={{ articles.next_page_number }}&q={{ request.GET.q }}">Next</a>
+
+                {% else %}
+                    <a class="page-link" href="{{ request.path }}?page={{ articles.next_page_number }}">Next</a>
+                {% endif %}
+            </li>
+        {% endif %}
+    </ul>
+</nav>

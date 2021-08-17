@@ -146,4 +146,9 @@
     {% endfor %}
 </ul>
 
+<form class="form-inline mt-3" action="{% url 'blog:search' %}">
+    <input type="text" class="form-control" name="q" placeholder="Search...">
+    <button class="btn btn-success" style="padding: 8px; border-radius: 5px; margin-right: 5px;">Go</button>
+</form>
+
 <!-- This template is that tag function input and the data renders here -->
