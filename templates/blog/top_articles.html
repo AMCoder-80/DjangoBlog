@@ -2,7 +2,7 @@
 <hr>
 {% for post in article %}
     <div class="top-title">
-        <a href="">{{ post.title }}</a>
+        <a href="{% url 'blog:detail_post' post.slug %}">{{ post.title }}</a>
     </div>
 {% endfor %}
 <br>

@@ -60,7 +60,6 @@ class Article(models.Model):
     status = models.CharField(max_length=10, choices=CHOICES, default='d')
     is_special = models.BooleanField(default=False)
 
-
     # This field makes a m2m relation with ip address table which the third table is defined custom with trough attr
     views = models.ManyToManyField(IPAddress, through='ArticleViews', blank=True, related_name='views')
 
@@ -110,8 +109,7 @@ class ArticleViews(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     post = models.ForeignKey(Article, null=True, on_delete=models.CASCADE, related_name='comments')
-    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE,verbose_name='Reply to'
-                               , related_name='replies')
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
     text = models.TextField(verbose_name='Comment')
     created = models.DateTimeField(auto_now_add=True)
     like = models.ManyToManyField(User, blank=True, related_name='comment_likes')

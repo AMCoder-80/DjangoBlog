@@ -2,7 +2,9 @@ from django import template
 
 from ..models import Category, Article
 from django.db.models import Count, Q
-from datetime import datetime, timedelta
+from datetime import timedelta
+from django.utils import timezone
+from star_ratings.models import Rating
 
 register = template.Library()
 
@@ -64,14 +66,20 @@ def text(status):
 @register.inclusion_tag('blog/top_articles.html')
 def top_ones(state, header):
     if state == 'views':
-        from_time = datetime.today() - timedelta(days=30)
+        from_time = timezone.localtime(timezone.now()) - timedelta(days=30)
         query_set = Article.objects.annotate(
             count=Count('views', filter=Q(articleviews__created__gte=from_time))
-        ).order_by('-count', '-published')[:5]
+        ).order_by('-count', '-published')[:3]
     elif state == 'controversial':
         query_set = Article.objects.annotate(
             count=Count('comments')
-        ).order_by('-count', '-published')[:5]
+        ).order_by('-count', '-published')[:3]
+    elif state == 'star':
+        article_id = Rating.objects.all().order_by('-average', 'count')[:3]\
+            .values_list('object_id', flat=True)
+        query_set = list()
+        for index in article_id:
+            query_set.append(Article.objects.get(pk=index))
 
     context = {
     'article': query_set, # noqa
