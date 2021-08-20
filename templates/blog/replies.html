@@ -1,4 +1,5 @@
 {% load gravatar %}
+{% load humanize %}
 <div class="media-block">
     <a class="media-left" href="#"><img src="{% gravatar_url replies.user.email 150 %}"
                                         class="img-circle img-sm" alt="User Image">
@@ -11,7 +12,7 @@
             {% endif %}
             <span class="btn-link text-semibold media-heading box-inline">{{ replies.user }}</span>
             <span href="#" class="reply-to">Replied to {{ replies.parent.user }}</span>
-            <p class="detail-info">{{ replies.created }}</p>
+            <p class="detail-info">{{ replies.created|naturaltime }}</p>
         </div>
         <p>{{ replies.text }}</p>
         <div class="btn-group" role="group" aria-label="Basic outlined example">

@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'django_gravatar',
     # Star rating app
     'star_ratings',
+    # Use this to make numbers more humanize
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

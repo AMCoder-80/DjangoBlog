@@ -128,7 +128,7 @@
 <!-- The nested menu use its own style -->
 
 <ul class="menu">
-<!-- Loop trough all active categories -->
+    <!-- Loop trough all active categories -->
     {% for cat in category %}
         <!-- Checks weather category has children or not -->
         {% if cat.children.all %}
@@ -147,8 +147,9 @@
 </ul>
 
 <form class="form-inline mt-3" action="{% url 'blog:search' %}">
-    <input type="text" class="form-control" name="q" placeholder="Search...">
-    <button class="btn btn-success" style="padding: 8px; border-radius: 5px; margin-right: 5px;">Go</button>
+    <div style="display: inline-flex">
+        <input type="text" placeholder="Search" name="q" class="form-control">
+        <button class="btn btn-success" style="padding: 8px; border-radius: 5px; margin-right: 5px;">Go</button>
+    </div>
 </form>
-
 <!-- This template is that tag function input and the data renders here -->
