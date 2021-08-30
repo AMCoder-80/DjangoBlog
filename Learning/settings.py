@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url
-import django_heroku
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -176,4 +174,3 @@ DEFAULT_FROM_EMAIL = 'AM80'
 # Set the size of stars
 STAR_RATINGS_STAR_HEIGHT = 20
 
-django_heroku.settings(locals())
